@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    tools:context=".WelcomeActivity"
+    android:background="@color/darkmode_black"
+
+    >
+
+
+    <TextView
+        android:id="@+id/intro_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Digtial Libary"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+        android:layout_marginBottom="16dp"/>
+
+    <TextView
+        android:id="@+id/intro_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Journey Through Countless Collections"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:lineSpacingMultiplier="1.2"
+        android:layout_marginBottom="32dp"
+        android:gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/connect_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CONNECT TO LIBRARY"
+        style="@style/Widget.MaterialComponents.Button" />
+
+</LinearLayout>

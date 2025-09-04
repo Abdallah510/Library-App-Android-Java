@@ -1,4 +1,4 @@
-package edu.birziet.project1;
+package edu.birzeit.project1;
 
 import android.content.Context;
 

@@ -84,6 +84,14 @@ public class WelcomeActivity extends AppCompatActivity {
 
             }
         });
+        Button btnAbdallah = findViewById(R.id.Abdallah);
+        btnAbdallah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WelcomeActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }

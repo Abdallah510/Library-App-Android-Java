@@ -62,6 +62,14 @@ public class WelcomeActivity extends AppCompatActivity {
                 Toast.makeText(WelcomeActivity.this, "Connecting to library...", Toast.LENGTH_SHORT).show();
             }
         });
+        Button btnAbdallah = findViewById(R.id.Abdallah);
+        btnAbdallah.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(WelcomeActivity.this, RegistrationActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }

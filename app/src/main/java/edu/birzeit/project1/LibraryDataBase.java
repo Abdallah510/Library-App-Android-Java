@@ -1,5 +1,6 @@
 package edu.birzeit.project1;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
@@ -36,7 +37,8 @@ public class LibraryDataBase extends SQLiteOpenHelper {
                 "email TEXT UNIQUE, " +
                 "password_hash TEXT, " +
                 "department TEXT, " +
-                "level TEXT" +
+                "level TEXT, " +
+                "phone_number TEXT" +
                 ");");
 
         // Create Reservations Table
@@ -60,6 +62,20 @@ public class LibraryDataBase extends SQLiteOpenHelper {
                 "FOREIGN KEY(student_id) REFERENCES Students(id), " +
                 "FOREIGN KEY(book_id) REFERENCES Books(id)" +
                 ");");
+    }
+    public void insertStudent(Student student) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("university_id", student.getUniversityId());
+        values.put("first_name", student.getFirstName());
+        values.put("last_name", student.getLastName());
+        values.put("email", student.getEmail());
+        values.put("password_hash", student.getPasswordHash());
+        values.put("department", student.getDepartment());
+        values.put("level", student.getLevel());
+        values.put("phone_number", student.getPhoneNumber());
+        db.insert("Students", null, values);
+        db.close();
     }
 
     @Override

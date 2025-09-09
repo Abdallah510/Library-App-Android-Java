@@ -9,6 +9,7 @@
     android:orientation="vertical"
     android:padding="24dp"
     tools:context=".WelcomeActivity"
+    android:background="@color/darkmode_black"
     >
 
 

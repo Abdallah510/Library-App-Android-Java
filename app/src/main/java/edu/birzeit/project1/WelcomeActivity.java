@@ -3,6 +3,7 @@ package edu.birzeit.project1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -10,19 +11,27 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.List;
+
 
 public class WelcomeActivity extends AppCompatActivity {
+
+    Button btnConnect;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
 
 
-        Button btnConnect = findViewById(R.id.connect_button);
+        btnConnect = findViewById(R.id.connect_button);
         ImageView ivLogo = findViewById(R.id.logo);
         LinearLayout llRoot = findViewById(R.id.root_layout);
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
@@ -51,6 +60,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 tvDescription.setVisibility(View.VISIBLE);
 
             }
+
             @Override
             public void onAnimationRepeat(Animation animation) {
             }
@@ -59,9 +69,48 @@ public class WelcomeActivity extends AppCompatActivity {
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(WelcomeActivity.this, "Connecting to library...", Toast.LENGTH_SHORT).show();
+                ivLogo.setVisibility(View.GONE);
+                ConnectionAsyncTask connectionAsyncTask = new ConnectionAsyncTask(WelcomeActivity.this);
+                try {
+                    connectionAsyncTask.execute("https://mocki.io/v1/dbf9b62e-ec38-4726-ab95-407098ba5974");
+                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class); startActivity(intent);
+                   startActivity(intent);
+
+                }
+                catch (Exception e){
+                    Toast.makeText(WelcomeActivity.this, "Couldn't Connect...", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
 
+
+    }
+
+    public void setButtonText(String text) {
+        btnConnect.setText(text);
+    }
+
+    public void fillProducts(List<Product> products) {
+        LinearLayout linearLayout = findViewById(R.id.root_layout);
+        linearLayout.removeAllViews();
+        for (int i = 0; i < products.size(); i++) {
+            TextView textView = new TextView(this);
+            textView.setText(products.get(i).toString());
+            textView.setTextColor(Color.WHITE);
+            linearLayout.addView(textView);
+        }
+    }
+    public void setProgress(boolean progress) {
+        if (progress) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 }
+
+
+
+

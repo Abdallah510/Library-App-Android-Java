@@ -9,7 +9,6 @@ public class Book {
     private String isbn;
     private int publicationYear;
 
-    // Constructor
     public Book(String title, String author, String category, String availability,
                 String coverUrl, String isbn, int publicationYear) {
         this.title = title;
@@ -78,3 +77,4 @@ public class Book {
     }
 
 }
+

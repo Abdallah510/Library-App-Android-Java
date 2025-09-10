@@ -51,4 +51,8 @@
     </style>
 
 
+    <style name="MySpinnerStyle" parent="Widget.AppCompat.Spinner">
+    </style>
+
+
 </resources>

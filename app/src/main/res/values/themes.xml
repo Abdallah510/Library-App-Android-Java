@@ -18,7 +18,37 @@
         <item name="android:textColor">@color/white</item>
 
         <item name="android:textColorPrimary" tools:targetApi="l">?attr/colorOnPrimary</item>
+        <item name="alertDialogTheme">@style/MyAlertDialogTheme</item>
 
         <!-- Customize your theme here. -->
     </style>
+
+
+    <style name="MyAlertDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <!-- Dialog background -->
+        <item name="materialAlertDialogBodyTextStyle">@style/MyDialogBodyText</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MyDialogTitleText</item>
+        <item name="android:background">@color/slate_blue_gray</item>
+
+        <!-- Button styles -->
+        <item name="buttonBarPositiveButtonStyle">@style/MyDialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/MyDialogButton</item>
+    </style>
+
+    <!-- Title text -->
+    <style name="MyDialogTitleText" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- Body text -->
+    <style name="MyDialogBodyText" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- Button text -->
+    <style name="MyDialogButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+
 </resources>

@@ -9,7 +9,6 @@ public class Book {
     private String isbn;
     private int publicationYear;
 
-    // Constructor
     public Book(String title, String author, String category, String availability,
                 String coverUrl, String isbn, int publicationYear) {
         this.title = title;
@@ -77,16 +76,5 @@ public class Book {
         this.publicationYear = publicationYear;
     }
 
-    @Override
-    public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", category='" + category + '\'' +
-                ", availability='" + availability + '\'' +
-                ", coverUrl='" + coverUrl + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", publicationYear=" + publicationYear +
-                '}';
-    }
 }
+

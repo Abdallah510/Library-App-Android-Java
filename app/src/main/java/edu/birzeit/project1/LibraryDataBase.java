@@ -2,6 +2,7 @@ package edu.birzeit.project1;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -79,9 +80,17 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         db.insert("Students", null, values);
         db.close();
     }
+    public Cursor getAllStudents() {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM Students", null);
+    }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+    }
+    public void deleteAllStudents() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("Students", null, null); // null WHERE = delete all rows
+        db.close();
     }
 }

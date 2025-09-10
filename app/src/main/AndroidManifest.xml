@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1">
         <activity
-            android:name=".BorrowedBooksActivity"
-            android:exported="false" />
-        <activity
             android:name=".LoginActivity"
             android:exported="false" /> <!-- Activities -->
         <activity

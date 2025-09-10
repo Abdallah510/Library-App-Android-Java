@@ -1,21 +1,61 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <!-- Main content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
+        <!-- Fragment container -->
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fragmentContainerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:name="edu.birzeit.project1.DashboardFragment" />
+
+        <!-- Bottom buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:background="@color/slate_blue_gray"
+            android:padding="0dp">
+
+            <Button
+                android:id="@+id/btn_dashboard"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Dashboard"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/slate_blue_gray"/>
+
+            <Button
+                android:id="@+id/btn_catalog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Book Catalog"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/slate_blue_gray"
+                android:layout_marginStart="8dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Navigation Drawer -->
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="300dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start">
-
-        <include layout="@layout/nav_items" />
-
-    </com.google.android.material.navigation.NavigationView>
+        android:layout_gravity="start"
+        app:menu="@menu/nav_items" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

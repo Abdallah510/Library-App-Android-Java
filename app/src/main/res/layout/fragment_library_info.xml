@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvLibraryInfoTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Library Information"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvLibraryHours"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Hours: Sun-Thu, 8:00 AM - 6:00 PM"
+        android:paddingBottom="8dp" />
+
+    <TextView
+        android:id="@+id/tvLibraryServices"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Services: Borrowing, E-books, Study Rooms"
+        android:paddingBottom="8dp" />
+
+    <Button
+        android:id="@+id/btnCallLibrary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Call Library" />
+
+    <Button
+        android:id="@+id/btnFindUs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Find Us on Map"
+        android:layout_marginTop="8dp"/>
+
+    <Button
+        android:id="@+id/btnEmailLibrarian"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Email Librarian"
+        android:layout_marginTop="8dp"/>
+</LinearLayout>

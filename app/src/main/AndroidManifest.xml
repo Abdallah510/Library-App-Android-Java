@@ -12,9 +12,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Project1">
         <activity
-            android:name=".LoginActivity"
+            android:name=".BorrowedBooksActivity"
             android:exported="false" />
-        <!-- Activities -->
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" /> <!-- Activities -->
         <activity
             android:name=".RegistrationActivity"
             android:exported="false" />

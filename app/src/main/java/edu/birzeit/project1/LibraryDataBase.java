@@ -13,10 +13,10 @@ import androidx.annotation.Nullable;
 public class LibraryDataBase extends SQLiteOpenHelper {
 
     public static String DATABASE_NAME = "Library_DB.db";
-
     public LibraryDataBase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         // Create Books Table
@@ -65,6 +65,19 @@ public class LibraryDataBase extends SQLiteOpenHelper {
                 "FOREIGN KEY(student_id) REFERENCES Students(id), " +
                 "FOREIGN KEY(book_id) REFERENCES Books(id)" +
                 ");");
+        // Create Borrowings Table
+        db.execSQL("CREATE TABLE Borrowings (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "student_id INTEGER NOT NULL, " +
+                "book_id INTEGER NOT NULL, " +
+                "borrow_date TEXT NOT NULL, " +
+                "due_date TEXT NOT NULL, " +
+                "return_date TEXT, " +
+                "status TEXT CHECK(status IN ('Active','Overdue','Returned','Extended')), " +
+                "fine_amount REAL DEFAULT 0, " +
+                "FOREIGN KEY(student_id) REFERENCES Students(id), " +
+                "FOREIGN KEY(book_id) REFERENCES Books(id)" +
+                ");");
     }
     public void insertStudent(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -88,9 +101,8 @@ public class LibraryDataBase extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
-    public void deleteAllStudents() {
-        SQLiteDatabase db = this.getWritableDatabase();
-        db.delete("Students", null, null); // null WHERE = delete all rows
-        db.close();
-    }
+   public Cursor getAllBooks() {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM Books", null);
+   }
 }

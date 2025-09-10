@@ -11,7 +11,9 @@ import androidx.annotation.Nullable;
 
 
 public class LibraryDataBase extends SQLiteOpenHelper {
+
     public static String DATABASE_NAME = "Library_DB.db";
+
     public LibraryDataBase(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }

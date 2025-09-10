@@ -42,7 +42,7 @@ public class RegistrationActivity extends AppCompatActivity {
         EditText etPhoneNumber = findViewById(R.id.etPhoneNumber);
         Button btnRegister = findViewById(R.id.btnRegister);
         Button btnBackToWelcome = findViewById(R.id.btnBackToWelcome);
-        LibraryDataBase db =new LibraryDataBase(RegistrationActivity.this,"Library_DB",null,1);
+        LibraryDataBase db =new LibraryDataBase(RegistrationActivity.this,LibraryDataBase.DATABASE_NAME,null,1);
         btnBackToWelcome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

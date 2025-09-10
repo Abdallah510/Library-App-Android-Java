@@ -1,6 +1,7 @@
 package edu.birzeit.project1;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -28,7 +29,6 @@ public class RegistrationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
-        //Spinners
         String[] academicOptions = { "Academic Level", "Senior", "Sophomore", "Junior", "Freshman", "Graduate" };
         setupSpinner(R.id.spinnerAcademicLevel, academicOptions);
         String[] departmenOptions = { "Select Department", "Computer Science", "Engineering", "Business", "Literature", "Medicine" };
@@ -41,7 +41,16 @@ public class RegistrationActivity extends AppCompatActivity {
         EditText etConfirmPassword = findViewById(R.id.etConfirmPassword);
         EditText etPhoneNumber = findViewById(R.id.etPhoneNumber);
         Button btnRegister = findViewById(R.id.btnRegister);
-        Button btnBackToLogin = findViewById(R.id.btnBackToLogin);
+        Button btnBackToWelcome = findViewById(R.id.btnBackToWelcome);
+        LibraryDataBase db =new LibraryDataBase(RegistrationActivity.this,"Library_DB",null,1);
+        btnBackToWelcome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegistrationActivity.this, WelcomeActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,48 +63,63 @@ public class RegistrationActivity extends AppCompatActivity {
                 String academicLevel = ((Spinner)findViewById(R.id.spinnerAcademicLevel)).getSelectedItem().toString();
                 String department = ((Spinner)findViewById(R.id.spinnerDepartment)).getSelectedItem().toString();
                 String phone = etPhoneNumber.getText().toString().trim();
-                LibraryDataBase db =new LibraryDataBase(RegistrationActivity.this,"Library_DB",null,1);
-                String errorMessage = null;
+                Cursor allStudents = db.getAllStudents();
 
-                if (!universityId.matches("\\d{4}\\d{4}")) {
-                    errorMessage="Invalid University ID (YYYY####)";
+                if (!universityId.matches("\\d{8}")) {
+                    etUniversityId.setError("Invalid University ID (YYYY####)");
+                    return;
+                }else{
+                    int year = Integer.parseInt(universityId.substring(0, 4));
+                    if(year >2025 || year < 2000){
+                        etUniversityId.setError("Invalid University ID (YYYY####)");
+                        return;
+                    }
+                }
+                if (firstName.length() < 3){
+                    etFirstName.setError("First Name must be ≥3 characters");
+                    return;
+
+                }
+                if (lastName.length() < 3){
+                    etLastName.setError("Last Name must be ≥3 characters");
+                    return;
+                }
+                if (!email.matches("[a-zA-Z0-9._%+-]+@university\\.edu")){
+                    etEmail.setError("Email must be a university email with @university.edu ");
+                    return;
+                }
+                if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{6,}$")){
+                    etPassword.setError("Password must have ≥6 chars, 1 upper, 1 lower, 1 number, 1 special char");
+                    return;
                 }
 
-                if (firstName.length() < 3) {
-                    errorMessage="First Name must be ≥3 characters";
+                if (!password.equals(confirmPassword)){
+                    etConfirmPassword.setError("Passwords do not match");
+                    return;
                 }
-
-                if (lastName.length() < 3) {
-                    errorMessage="Last Name must be ≥3 characters";
-
-                }
-
-                if (!email.matches("[a-zA-Z0-9._%+-]+@university\\.edu")) {
-                    errorMessage="Email must be a university email";
-                }
-
-                if (!password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!]).{6,}$")) {
-                    errorMessage="Password must have ≥6 chars, 1 upper, 1 lower, 1 number, 1 special char";
-                }
-
-                if (!password.equals(confirmPassword)) {
-                    errorMessage="Passwords do not match";
-                }
-
                 if (academicLevel.equals("Academic Level")) {
-                    Toast.makeText(RegistrationActivity.this, "Please select an academic level", Toast.LENGTH_SHORT).show();
+                    TextView errorText = (TextView)((Spinner)findViewById(R.id.spinnerAcademicLevel)).getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);
+                    errorText.setText("Please select an academic level");
                     return;
                 }
-
                 if (department.equals("Select Department")) {
-                    Toast.makeText(RegistrationActivity.this, "Please select a department", Toast.LENGTH_SHORT).show();
+                    TextView errorText = (TextView)((Spinner)findViewById(R.id.spinnerDepartment)).getSelectedView();
+                    errorText.setError("");
+                    errorText.setTextColor(Color.RED);
+                    errorText.setText("Please select a department");
                     return;
                 }
-                if (errorMessage != null) {
-                    Toast.makeText(RegistrationActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(RegistrationActivity.this, RegistrationActivity.class);
-                    startActivity(intent);
-                    finish();
+                while (allStudents.moveToNext()) {
+                    if (allStudents.getString(1).equals(universityId)) {
+                        Toast.makeText(RegistrationActivity.this, "University ID already exists", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if(allStudents.getString(4).equals(email)){
+                        Toast.makeText(RegistrationActivity.this, "Email already exists", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                 }
                 String encryptedPassword = "";
                 for (char c : password.toCharArray()) {
@@ -113,7 +137,7 @@ public class RegistrationActivity extends AppCompatActivity {
                 student.setPhoneNumber(phoneNew);
                 db.insertStudent(student);
                 Toast.makeText(RegistrationActivity.this, "Registration successful!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegistrationActivity.this, RegistrationActivity.class);
+                Intent intent = new Intent(RegistrationActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();
             }

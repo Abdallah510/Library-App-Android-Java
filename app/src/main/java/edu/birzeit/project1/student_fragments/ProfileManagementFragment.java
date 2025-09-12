@@ -18,7 +18,7 @@ import android.widget.*;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
-import edu.birzeit.project1.LibraryDataBase;
+import edu.birzeit.project1.database.LibraryDataBase;
 
 import edu.birzeit.project1.R;
 

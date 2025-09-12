@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_dashboard"
+        android:title="Dashboard" />
+    <item
+        android:id="@+id/nav_library_info"
+        android:title="Librarians" />
+    <item
+        android:id="@+id/nav_students"
+        android:title="Students" />
+    <item
+        android:id="@+id/nav_borrowed_books"
+        android:title="Books" />
+    <item
+        android:id="@+id/nav_reading_list"
+        android:title="Reservations" />
+    <item
+        android:id="@+id/nav_new_arrivals"
+        android:title="Report" />
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Settings" />
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Logout" />
+</menu>

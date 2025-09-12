@@ -80,7 +80,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     connectionAsyncTask.execute("https://api.jsonsilo.com/demo/3e0eced2-0dea-4967-acc6-1d123e99e709");
                     // https://api.jsonsilo.com/demo/3e0eced2-0dea-4967-acc6-1d123e99e709
                     // https://mocki.io/v1/dbf9b62e-ec38-4726-ab95-407098ba5974
-                    Intent intent = new Intent(WelcomeActivity.this, MainActivity.class); startActivity(intent);
+                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class); startActivity(intent);
                    startActivity(intent);
 
                 }
@@ -91,15 +91,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
             }
         });
-        Button btnAbdallah = findViewById(R.id.Abdallah);
-        btnAbdallah.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
-                startActivity(intent);
-            }
-        });
-
 
     }
 

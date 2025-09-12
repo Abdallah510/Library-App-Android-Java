@@ -1,6 +1,6 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.prelogin;
 
-import static edu.birzeit.project1.LibraryDataBase.DATABASE_NAME;
+import static edu.birzeit.project1.database.LibraryDataBase.DATABASE_NAME;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import edu.birzeit.project1.database.LibraryDataBase;
+import edu.birzeit.project1.student_fragments.MainActivity;
+import edu.birzeit.project1.R;
 
 public class LoginActivity extends AppCompatActivity {
     int validLogin = 0;

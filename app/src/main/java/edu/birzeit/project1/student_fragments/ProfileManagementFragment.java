@@ -1,4 +1,4 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.student_fragments;
 
 import android.os.Bundle;
 
@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import edu.birzeit.project1.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ReadingListFragment#newInstance} factory method to
+ * Use the {@link ProfileManagementFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ReadingListFragment extends Fragment {
+public class ProfileManagementFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +26,7 @@ public class ReadingListFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public ReadingListFragment() {
+    public ProfileManagementFragment() {
         // Required empty public constructor
     }
 
@@ -34,11 +36,11 @@ public class ReadingListFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment ReadingListFragment.
+     * @return A new instance of fragment ProfileManagementFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static ReadingListFragment newInstance(String param1, String param2) {
-        ReadingListFragment fragment = new ReadingListFragment();
+    public static ProfileManagementFragment newInstance(String param1, String param2) {
+        ProfileManagementFragment fragment = new ProfileManagementFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +61,6 @@ public class ReadingListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reading_list, container, false);
+        return inflater.inflate(R.layout.fragment_profile_management, container, false);
     }
 }

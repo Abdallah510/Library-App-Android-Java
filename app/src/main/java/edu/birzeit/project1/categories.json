@@ -1,0 +1,54 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "name": "Science & Technology",
+      "icon_url": "https://www.freepik.com/icons/science"
+    },
+    {
+      "id": 2,
+      "name": "Literature & Arts",
+      "icon_url": "https://www.freepik.com/icons/literature"
+    },
+    {
+      "id": 3,
+      "name": "History & Politics",
+      "icon_url": "https://www.freepik.com/icons/history"
+    },
+    {
+      "id": 4,
+      "name": "Business & Economics",
+      "icon_url": "https://www.freepik.com/icons/business"
+    },
+    {
+      "id": 5,
+      "name": "Health & Medicine",
+      "icon_url": "https://www.freepik.com/icons/health"
+    },
+    {
+      "id": 6,
+      "name": "Philosophy",
+      "icon_url": "https://www.freepik.com/icons/philosophy"
+    },
+    {
+      "id": 7,
+      "name": "Travel & Adventure",
+      "icon_url": "https://www.freepik.com/icons/travel"
+    },
+    {
+      "id": 8,
+      "name": "Children's Books",
+      "icon_url": "https://www.freepik.com/icons/children"
+    },
+    {
+      "id": 9,
+      "name": "Science Fiction & Fantasy",
+      "icon_url": "https://www.freepik.com/icons/scifi"
+    },
+    {
+      "id": 10,
+      "name": "Dystopian",
+      "icon_url": "https://www.freepik.com/icons/dystopian"
+    }
+  ]
+}

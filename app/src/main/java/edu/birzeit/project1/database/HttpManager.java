@@ -1,4 +1,4 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.database;
 
 import android.util.Log;
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.prelogin;
 
 import android.content.Context;
 import android.content.SharedPreferences;

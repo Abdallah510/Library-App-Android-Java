@@ -1,4 +1,4 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.student_fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.birzeit.project1.BorrowedBooks;
-import edu.birzeit.project1.BorrowedBooksAdapter;
+import edu.birzeit.project1.R;
 
 public class BorrowedBooksFragment extends Fragment {
 

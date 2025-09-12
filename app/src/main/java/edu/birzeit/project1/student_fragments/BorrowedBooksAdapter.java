@@ -1,8 +1,7 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.student_fragments;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
+
+import edu.birzeit.project1.database.LibraryDataBase;
+import edu.birzeit.project1.R;
 
 public class BorrowedBooksAdapter extends RecyclerView.Adapter<BorrowedBooksAdapter.ViewHolder> {
 

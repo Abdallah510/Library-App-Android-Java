@@ -4,7 +4,6 @@
     android:layout_height="match_parent"
     android:padding="8dp">
 
-    <!-- Search bar -->
     <EditText
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
@@ -12,27 +11,55 @@
         android:hint="Search by title, author, ISBN"
         android:inputType="text"/>
 
-    <!-- Sort / Filter spinner -->
-    <Spinner
-        android:id="@+id/spinner_sort"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:entries="@array/book_sort_options"
-        android:spinnerMode="dropdown"
-        android:layout_gravity="end"
-        android:popupBackground="@color/midnight_blue"/>
+        android:orientation="horizontal">
 
+        <CheckBox
+            android:id="@+id/check_available"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Available"
+            style="@style/MyCheckBox"/>
 
-    <!-- RecyclerView for book list -->
+        <Spinner
+            android:id="@+id/spinner_sort"
+            android:layout_width="130dp"
+            android:layout_height="48dp"
+            android:popupBackground="@color/midnight_blue"
+            android:spinnerMode="dropdown" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/min_year"
+
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:hint="Min Year"
+                android:inputType="number" />
+
+            <EditText
+                android:id="@+id/max_year"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:hint="Max Year"
+                android:inputType="number" />
+        </LinearLayout>
+
+    </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_books"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:paddingTop="8dp"/>
-
-
 </LinearLayout>
-
-

@@ -1,6 +1,6 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.student_fragments;
 
-import static edu.birzeit.project1.LoginActivity.logedInId;
+import static edu.birzeit.project1.prelogin.LoginActivity.logedInId;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -8,13 +8,20 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+
 import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+
+import edu.birzeit.project1.LibraryDataBase;
+
+import edu.birzeit.project1.R;
+
 
 public class ProfileManagementFragment extends Fragment {
 

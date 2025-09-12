@@ -1,13 +1,10 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.prelogin;
 
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.telecom.TelecomManager;
-import android.telephony.TelephonyManager;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -19,8 +16,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.util.HashMap;
-import java.util.Locale;
+import edu.birzeit.project1.database.LibraryDataBase;
+import edu.birzeit.project1.R;
+import edu.birzeit.project1.entities.Student;
 
 
 public class RegistrationActivity extends AppCompatActivity {

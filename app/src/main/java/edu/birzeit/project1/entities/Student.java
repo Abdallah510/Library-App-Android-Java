@@ -1,4 +1,4 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.entities;
 
 public class Student {
     private int id;

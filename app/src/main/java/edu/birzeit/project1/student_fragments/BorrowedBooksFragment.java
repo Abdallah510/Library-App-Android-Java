@@ -1,6 +1,6 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.student_fragments;
 
-import static edu.birzeit.project1.LoginActivity.logedInId;
+import static edu.birzeit.project1.prelogin.LoginActivity.logedInId;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.birzeit.project1.LibraryDataBase;
 
 
 public class BorrowedBooksFragment extends Fragment {

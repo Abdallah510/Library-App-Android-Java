@@ -1,8 +1,0 @@
-{
-  "categories": [
-    {"id": 1, "name": "Science & Technology", "icon_url": "https://www.freepik.com/icon/analytics_1602662#fromView=search&page=1&position=10&uuid=8667094e-e1ae-4d1c-b3e6-56703e5eb44b"},
-    {"id": 2, "name": "Literature & Arts", "icon_url": "..."},
-    {"id": 3, "name": "History & Politics", "icon_url": "..."},
-    {"id": 4, "name": "Business & Economics", "icon_url": "..."}
-  ]
-}

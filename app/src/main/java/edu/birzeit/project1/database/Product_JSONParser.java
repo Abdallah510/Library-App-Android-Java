@@ -1,10 +1,12 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.database;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.birzeit.project1.entities.Product;
 
 public class Product_JSONParser {
     public static List<Product> getObjectFromJson(String json) {

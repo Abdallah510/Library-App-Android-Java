@@ -14,8 +14,9 @@ public class BorrowedBooks {
 
     }
 
-    public BorrowedBooks(int studentId, int bookId,
+    public BorrowedBooks(int id,int studentId, int bookId,
                          String borrowDate, String dueDate, String returnDate, String status, double fineAmount) {
+        this.id = id;
         this.studentId = studentId;
         this.bookId = bookId;
         this.borrowDate = borrowDate;

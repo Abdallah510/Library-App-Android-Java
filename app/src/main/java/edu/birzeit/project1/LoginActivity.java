@@ -15,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
     int validLogin = 0;
+    public static int logedInId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,8 +76,10 @@ public class LoginActivity extends AppCompatActivity {
                 String encryptedPassword = "";
                 for (char c : loginPassword.toCharArray())
                     encryptedPassword += (char)(c + 3);
-                if (allStudents.getString(5).equals(encryptedPassword))
+                if (allStudents.getString(5).equals(encryptedPassword)){
                     validLogin =1;
+                    logedInId = Integer.parseInt(allStudents.getString(0));
+                }
             }
         }
     }

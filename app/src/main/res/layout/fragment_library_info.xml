@@ -1,51 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvLibraryInfoTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Library Information"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_gravity="center_horizontal"
-        android:paddingBottom="16dp" />
-
-    <TextView
-        android:id="@+id/tvLibraryHours"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hours: Sun-Thu, 8:00 AM - 6:00 PM"
-        android:paddingBottom="8dp" />
+        android:gravity="center_horizontal">
 
-    <TextView
-        android:id="@+id/tvLibraryServices"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Services: Borrowing, E-books, Study Rooms"
-        android:paddingBottom="8dp" />
+        <!-- Title -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Us"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:layout_marginBottom="24dp" />
 
-    <Button
-        android:id="@+id/btnCallLibrary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Call Library" />
+        <!-- Buttons Section -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_marginBottom="32dp"
+            android:divider="?android:dividerVertical"
+            android:showDividers="middle"
+            android:dividerPadding="12dp">
 
-    <Button
-        android:id="@+id/btnFindUs"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Find Us on Map"
-        android:layout_marginTop="8dp"/>
+            <!-- Call Library Button -->
+            <Button
+                android:id="@+id/btnCallLibrary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Call Library"
+                android:layout_marginBottom="16dp"/>
 
-    <Button
-        android:id="@+id/btnEmailLibrarian"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Email Librarian"
-        android:layout_marginTop="8dp"/>
-</LinearLayout>
+            <!-- Find Us Button -->
+
+            <!-- Email Librarian Button -->
+            <Button
+                android:id="@+id/btnFindUs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="Find Us"
+                />
+
+            <Button
+                android:id="@+id/btnEmailLibrarian"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email Librarian" />
+
+        </LinearLayout>
+
+        <!-- Library Info Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            app:cardBackgroundColor="#1E293B"
+            app:cardElevation="2dp"
+            app:cardCornerRadius="12dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <!-- Library Hours -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Library Hours"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:layout_marginBottom="8dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mon - Fri: 8:00 AM - 10:00 PM\nSat: 9:00 AM - 5:00 PM"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Services Offered -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Services Offered"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:layout_marginBottom="8dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Borrowing Books\n• Research Assistance\n• Printing\n• Scanning\n• Study Rooms"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:layout_marginBottom="16dp"/>
+
+                <!-- Policies and Rules -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Policies and Rules"
+                    android:textAppearance="?attr/textAppearanceSubtitle1"
+                    android:layout_marginBottom="8dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="• Maintain Silence\n• No Food or Drinks\n• Return Books on Time"
+                    android:textAppearance="?attr/textAppearanceBody2"/>
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</ScrollView>

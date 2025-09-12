@@ -41,7 +41,8 @@ public class LibraryDataBase extends SQLiteOpenHelper {
                 "password_hash TEXT, " +
                 "department TEXT, " +
                 "level TEXT, " +
-                "phone_number TEXT" +
+                "phone_number TEXT, " +
+                "profile_picture BLOB" +
                 ");");
 
         // Create Reservations Table
@@ -97,12 +98,32 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = getReadableDatabase();
         return sqLiteDatabase.rawQuery("SELECT * FROM Students", null);
     }
-
+    public Cursor getAllBooks() {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM Books", null);
+    }
+    public Cursor getAllBorrowedBooks() {
+        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
+        return sqLiteDatabase.rawQuery("SELECT * FROM Borrowings", null);
+    }
+    public void updateStudent(String firstName,String lastName,String passwordHash,String phoneNumber,int studentId){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("first_name", firstName);
+        values.put("last_name", lastName);
+        values.put("password_hash", passwordHash);
+        values.put("phone_number", phoneNumber);
+        db.update("Students", values, "id = ?", new String[]{String.valueOf(studentId)});
+        db.close();
+    }
+    public void updateStudentPhoto(byte[] photoBytes, int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put("profile_picture", photoBytes);
+        db.update("Students", cv, "id=?", new String[]{String.valueOf(id)});
+    }
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
     }
-   public Cursor getAllBooks() {
-        SQLiteDatabase sqLiteDatabase = getReadableDatabase();
-        return sqLiteDatabase.rawQuery("SELECT * FROM Books", null);
-   }
+
 }

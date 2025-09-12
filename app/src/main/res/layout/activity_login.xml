@@ -81,7 +81,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:text="Back to Register"
+            android:text="\Register"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/btnLogin"
             app:layout_constraintStart_toStartOf="parent"

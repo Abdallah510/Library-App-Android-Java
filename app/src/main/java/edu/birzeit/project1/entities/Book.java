@@ -1,4 +1,4 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.entities;
 
 public class Book {
     private String title;

@@ -1,4 +1,4 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.student_fragments;
 
 import android.content.Intent;
 import android.net.Uri;

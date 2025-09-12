@@ -1,4 +1,4 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.student_fragments;
 
 import static android.app.PendingIntent.getActivity;
 
@@ -17,6 +17,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
+
+import edu.birzeit.project1.R;
+import edu.birzeit.project1.prelogin.RegistrationActivity;
 
 public class MainActivity extends AppCompatActivity {
 

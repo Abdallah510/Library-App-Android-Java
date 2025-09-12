@@ -1,4 +1,4 @@
-package edu.birzeit.project1;
+package edu.birzeit.project1.student_fragments;
 
 public class BorrowedBooks {
     private int id;

@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import edu.birzeit.project1.entities.Student;
+
 
 public class LibraryDataBase extends SQLiteOpenHelper {
 

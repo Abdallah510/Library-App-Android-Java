@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.birzeit.project1.LibraryDataBase;
+import edu.birzeit.project1.R;
 
 
 public class BorrowedBooksFragment extends Fragment {

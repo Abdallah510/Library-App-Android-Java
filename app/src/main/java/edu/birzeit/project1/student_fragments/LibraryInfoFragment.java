@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import edu.birzeit.project1.R;
+
 
 public class LibraryInfoFragment extends Fragment {
 

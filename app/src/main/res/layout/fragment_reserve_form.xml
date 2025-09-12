@@ -2,9 +2,12 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:padding="1dp">
+    android:padding="1dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".student_fragments.ReserveFormFragment">
 
-    <ScrollView
+
+<ScrollView
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:scrollbars="vertical">

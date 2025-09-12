@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.birzeit.project1.LibraryDataBase;
+import edu.birzeit.project1.database.LibraryDataBase;
 import edu.birzeit.project1.R;
 
 

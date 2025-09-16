@@ -20,6 +20,10 @@
             android:exported="false" />
         <activity
             android:name=".student_fragments.MainActivity"
+            android:exported="false"
+            android:theme="@style/Theme.Project1NoAction" />
+        <activity
+            android:name=".librarian_fragment.MainLibrarianActivity"
             android:exported="false" />
         <activity
             android:name=".prelogin.WelcomeActivity"

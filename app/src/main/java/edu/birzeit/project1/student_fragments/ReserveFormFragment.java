@@ -15,11 +15,12 @@ import androidx.fragment.app.DialogFragment;
 
 import edu.birzeit.project1.database.LibraryDataBase;
 import edu.birzeit.project1.R;
+import edu.birzeit.project1.prelogin.LoginActivity;
 
 public class ReserveFormFragment extends DialogFragment {
 
-    private int bookId;
-    private int studentId;
+    private int bookId = BookAdapter.BOOK_ID;
+    private int studentId = LoginActivity.logedInId;
 
     private Spinner spinnerDuration;
     private RadioGroup radioCollectionMethod;
@@ -59,10 +60,9 @@ public class ReserveFormFragment extends DialogFragment {
         int selectedId = radioCollectionMethod.getCheckedRadioButtonId();
         String collectionMethod = selectedId == R.id.radioPickup ? "Pickup" : "Digital";
 
-        // Get special notes
         String notes = editNotes.getText().toString();
 
-        // Insert into SQLite database
+
         LibraryDataBase db =new LibraryDataBase(requireContext(),LibraryDataBase.DATABASE_NAME,null,1);
         boolean success = db.insertReservation(studentId, bookId, durationWeeks, collectionMethod, notes);
 

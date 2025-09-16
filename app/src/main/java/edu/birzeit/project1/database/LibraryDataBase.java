@@ -203,6 +203,64 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         return db.rawQuery(query.toString(), argsList.toArray(new String[0]));
     }
 
+
+    public Cursor getFilteredBooksWithSearchid(String search, String category, String availability,
+                                             int minYear, int maxYear, Integer studentId) {
+        SQLiteDatabase db = getReadableDatabase();
+
+        // Start query differently if filtering by student
+        StringBuilder query = new StringBuilder();
+        if (studentId != null) {
+            query.append("SELECT Books.* FROM Books ")
+                    .append("INNER JOIN Reading_List ON Books.id = Reading_List.book_id ")
+                    .append("WHERE Reading_List.student_id = ? ")
+                    .append("AND Books.publication_year BETWEEN ? AND ?");
+        } else {
+            query.append("SELECT * FROM Books WHERE publication_year BETWEEN ? AND ?");
+        }
+
+        List<String> argsList = new ArrayList<>();
+
+        if (studentId != null) {
+            argsList.add(String.valueOf(studentId));
+        }
+
+        argsList.add(String.valueOf(minYear));
+        argsList.add(String.valueOf(maxYear));
+
+        if (search != null && !search.isEmpty()) {
+            query.append(" AND (Books.title LIKE ? OR Books.author LIKE ? OR Books.isbn LIKE ?)");
+            String like = "%" + search + "%";
+            argsList.add(like);
+            argsList.add(like);
+            argsList.add(like);
+        }
+
+        if (category != null && !category.isEmpty()) {
+            query.append(" AND Books.category = ?");
+            argsList.add(category);
+        }
+
+        if (availability != null && !availability.isEmpty()) {
+            query.append(" AND Books.availability = ?");
+            argsList.add(availability);
+        }
+
+        return db.rawQuery(query.toString(), argsList.toArray(new String[0]));
+    }
+
+    public Cursor getLatestBooks(int limit) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT * FROM Books ORDER BY id DESC LIMIT ?";
+
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(limit)});
+
+        return cursor;
+    }
+
+
+
     // ================== Borrowings Methods ==================
     public Cursor getAllBorrowedBooks() {
         SQLiteDatabase db = getReadableDatabase();
@@ -232,6 +290,44 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         db.close();
         return result != -1;
     }
+    // ================== READING LIST Methods ==================
+    public boolean insertReadingList(int studentId, int bookId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        long now = System.currentTimeMillis();
+        String reservationDate = new java.text.SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date(now));
+
+        values.put("student_id", studentId);
+        values.put("book_id", bookId);
+        values.put("added_date", reservationDate);
+
+        long result = db.insert("Reading_List", null, values);
+        db.close();
+        return result != -1;
+    }
+
+    public Cursor getReadingListByStudentId(int studentId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String query = "SELECT Books.* " +
+                "FROM Books " +
+                "WHERE Books.id IN (SELECT book_id FROM Reading_List WHERE student_id = ?)";
+
+        return db.rawQuery(query, new String[]{String.valueOf(studentId)});
+    }
+
+    public boolean removeBookFromReadingList(int studentId, int bookId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int rowsAffected = db.delete(
+                "Reading_List",
+                "student_id = ? AND book_id = ?",
+                new String[]{String.valueOf(studentId), String.valueOf(bookId)}
+        );
+        db.close();
+        return rowsAffected > 0;
+    }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

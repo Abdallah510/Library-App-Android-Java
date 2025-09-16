@@ -4,7 +4,9 @@
     android:layout_height="wrap_content"
     android:padding="1dp"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".student_fragments.ReserveFormFragment">
+    tools:context=".student_fragments.ReserveFormFragment"
+    style="@style/MyAlertDialogTheme"
+    >
 
 
 <ScrollView
@@ -38,7 +40,10 @@
                 android:id="@+id/spinnerDuration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp" />
+                android:layout_marginBottom="12dp"
+                android:entries="@array/weeks"
+                style="@style/MySpinnerStyle"
+                />
 
 
             <TextView
@@ -52,7 +57,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginBottom="12dp">
+                android:layout_marginBottom="12dp"
+                style="@style/MyRadioButton"
+                >
 
                 <RadioButton
                     android:id="@+id/radioPickup"

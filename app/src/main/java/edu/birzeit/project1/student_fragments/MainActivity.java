@@ -23,6 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.Objects;
 
 import edu.birzeit.project1.R;
+import edu.birzeit.project1.prelogin.LoginActivity;
 import edu.birzeit.project1.prelogin.RegistrationActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
                                 .setPositiveButton("YES", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
-                                        Intent intent = new Intent(MainActivity.this, RegistrationActivity.class);
+                                        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
                                         startActivity(intent);
                                         finish();
                                     }

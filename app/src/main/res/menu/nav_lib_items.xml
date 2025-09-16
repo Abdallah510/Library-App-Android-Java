@@ -4,14 +4,14 @@
         android:id="@+id/nav_dashboard"
         android:title="Dashboard" />
     <item
-        android:id="@+id/nav_library_info"
-        android:title="Librarians" />
+        android:id="@+id/nav_Registration"
+        android:title="Registration" />
     <item
         android:id="@+id/nav_students"
         android:title="Students" />
     <item
-        android:id="@+id/nav_borrowed_books"
-        android:title="Books" />
+        android:id="@+id/nav_LibraryInfo"
+        android:title="LibraryInfo" />
     <item
         android:id="@+id/nav_reading_list"
         android:title="Reservations" />

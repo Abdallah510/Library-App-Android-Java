@@ -5,11 +5,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import edu.birzeit.project1.entities.Book;
+import edu.birzeit.project1.entities.Librarian;
 import edu.birzeit.project1.entities.Student;
 
 public class LibraryDataBase extends SQLiteOpenHelper {
@@ -34,6 +33,7 @@ public class LibraryDataBase extends SQLiteOpenHelper {
                 "publication_year INTEGER" +
                 ");");
 
+
         // Students Table
         db.execSQL("CREATE TABLE Students (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -46,6 +46,16 @@ public class LibraryDataBase extends SQLiteOpenHelper {
                 "level TEXT, " +
                 "phone_number TEXT, " +
                 "profile_picture BLOB" +
+                ");");
+        // Librarian Table
+        db.execSQL("CREATE TABLE Librarian (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "university_id TEXT UNIQUE NOT NULL, " +
+                "first_name TEXT, " +
+                "last_name TEXT, " +
+                "email TEXT UNIQUE, " +
+                "password_hash TEXT, " +
+                "phone_number TEXT " +
                 ");");
 
         // Reservations Table (updated version)
@@ -125,6 +135,12 @@ public class LibraryDataBase extends SQLiteOpenHelper {
     public Cursor getAllStudents() {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM Students", null);
+    }
+
+    public void deleteStudentById(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("Students", "id = ?", new String[]{String.valueOf(id)});
+        db.close();
     }
 
     // ================== Book Methods ==================
@@ -231,6 +247,23 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         long result = db.insert("Reservations", null, values);
         db.close();
         return result != -1;
+    }
+    // ================== Student Methods ==================
+    public Cursor getAllLibrarians() {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery("SELECT * FROM Librarian", null);
+    }
+    public void insertLibrarian(Librarian librarian) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("university_id", librarian.getUniversityId());
+        values.put("first_name", librarian.getFirstName());
+        values.put("last_name", librarian.getLastName());
+        values.put("email", librarian.getEmail());
+        values.put("password_hash", librarian.getPasswordHash());
+        values.put("phone_number", librarian.getPhoneNumber());
+        db.insert("Librarian", null, values);
+        db.close();
     }
 
     @Override

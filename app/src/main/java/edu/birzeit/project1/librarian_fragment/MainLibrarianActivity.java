@@ -17,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.navigation.NavigationView;
 
 import edu.birzeit.project1.R;
+import edu.birzeit.project1.prelogin.LoginActivity;
 import edu.birzeit.project1.prelogin.RegistrationActivity;
 import edu.birzeit.project1.student_fragments.BookCatalogFragment;
 import edu.birzeit.project1.student_fragments.BorrowedBooksFragment;
@@ -34,7 +35,7 @@ public class MainLibrarianActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_librarian_main);
 
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -51,14 +52,14 @@ public class MainLibrarianActivity extends AppCompatActivity {
                 Fragment selectedFragment = null;
 
                 switch (item.getItemId()) {
-                    case R.id.nav_dashboard:
-                      //  selectedFragment = new DashboardFragment();
+                    case R.id.nav_Registration:
+                        selectedFragment = new LibrarianRegistrationFragment();
                         break;
-                    case R.id.nav_borrowed_books:
-                     //   selectedFragment = new BorrowedBooksFragment();
+                    case R.id.nav_students:
+                         selectedFragment = new LibrarianStudentManagerFragment();
                         break;
-                    case R.id.nav_reading_list:
-                    //    selectedFragment = new ReadingListFragment();
+                    case R.id.nav_LibraryInfo:
+                        selectedFragment = new LibraryInfoManagerFragment();
                         break;
                     case R.id.nav_profile:
                     //    selectedFragment = new ProfileManagementFragment();
@@ -66,18 +67,12 @@ public class MainLibrarianActivity extends AppCompatActivity {
                     case R.id.nav_new_arrivals:
                    //     selectedFragment = new NewArrivalsFragment();
                         break;
-                    case R.id.nav_library_info:
-                   //     selectedFragment = new LibraryInfoFragment();
-                        break;
-                    case R.id.nav_students:
-                    //    selectedFragment = new StudentsFragment(); // If you want a fragment for students
-                        break;
                     case R.id.nav_logout:
                         new AlertDialog.Builder(MainLibrarianActivity.this)
                                 .setTitle("Logout")
                                 .setMessage("Are you sure you want to logout?")
                                 .setPositiveButton("YES", (dialog, which) -> {
-                                    Intent intent = new Intent(MainLibrarianActivity.this, RegistrationActivity.class);
+                                    Intent intent = new Intent(MainLibrarianActivity.this, LoginActivity.class);
                                     startActivity(intent);
                                     finish();
                                 })

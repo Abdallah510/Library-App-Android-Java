@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    tools:context=".prelogin.LoginActivity">
+    android:padding="16dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -51,16 +49,35 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"/>
 
-        <!-- Remember Me Checkbox -->
-        <CheckBox
-            android:id="@+id/cbRememberMe"
-            android:layout_width="wrap_content"
+        <!-- Checkboxes Row -->
+        <LinearLayout
+            android:id="@+id/layoutCheckboxes"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Remember Me"
+            android:orientation="horizontal"
+            android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/etLoginPassword"
             app:layout_constraintStart_toStartOf="parent"
-            android:textColor="#9A8C98"
-            android:layout_marginTop="8dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="8dp">
+
+            <!-- Remember Me Checkbox -->
+            <CheckBox
+                android:id="@+id/cbRememberMe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Remember Me"
+                android:textColor="#9A8C98"/>
+
+            <!-- Librarian Checkbox -->
+            <CheckBox
+                android:id="@+id/cbLibrarian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Librarian"
+                android:textColor="#9A8C98"
+                android:layout_marginStart="24dp"/>
+        </LinearLayout>
 
         <!-- Login Button -->
         <Button
@@ -70,7 +87,7 @@
             android:minHeight="48dp"
             android:text="Login"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/cbRememberMe"
+            app:layout_constraintTop_toBottomOf="@id/layoutCheckboxes"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"/>
@@ -81,7 +98,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
-            android:text="\Register"
+            android:text="Register"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/btnLogin"
             app:layout_constraintStart_toStartOf="parent"

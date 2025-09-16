@@ -84,6 +84,7 @@
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     android:layout_marginBottom="8dp"/>
                 <TextView
+                    android:id="@+id/tvLibraryHours"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Mon - Fri: 8:00 AM - 10:00 PM\nSat: 9:00 AM - 5:00 PM"
@@ -98,6 +99,7 @@
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     android:layout_marginBottom="8dp" />
                 <TextView
+                    android:id="@+id/tvLibraryServices"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="• Borrowing Books\n• Research Assistance\n• Printing\n• Scanning\n• Study Rooms"
@@ -112,6 +114,7 @@
                     android:textAppearance="?attr/textAppearanceSubtitle1"
                     android:layout_marginBottom="8dp"/>
                 <TextView
+                    android:id="@+id/tvLibraryPolicies"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="• Maintain Silence\n• No Food or Drinks\n• Return Books on Time"

@@ -82,7 +82,7 @@ public class RegistrationActivity extends AppCompatActivity {
                     etLastName.setError("Last Name must be ≥3 characters");
                     return;
                 }
-                if (!email.matches("[a-zA-Z0-9._%+-]+@university\\.edu")){
+                if (!email.matches("[a-zA-Z0-9._%+-]+@university\\.edu") || email.equals("librarian@library.edu")){
                     etEmail.setError("Email must be a university email with @university.edu ");
                     return;
                 }

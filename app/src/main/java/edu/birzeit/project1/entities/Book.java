@@ -1,6 +1,11 @@
 package edu.birzeit.project1.entities;
 
+import static androidx.core.content.ContentProviderCompat.requireContext;
+
+import edu.birzeit.project1.database.LibraryDataBase;
+
 public class Book {
+    int id;
     private String title;
     private String author;
     private String category;
@@ -8,6 +13,19 @@ public class Book {
     private String coverUrl;
     private String isbn;
     private int publicationYear;
+
+
+    public Book(int id,String title, String author, String category, String availability,
+                String coverUrl, String isbn, int publicationYear) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.category = category;
+        this.availability = availability;
+        this.coverUrl = coverUrl;
+        this.isbn = isbn;
+        this.publicationYear = publicationYear;
+    }
 
     public Book(String title, String author, String category, String availability,
                 String coverUrl, String isbn, int publicationYear) {
@@ -76,5 +94,8 @@ public class Book {
         this.publicationYear = publicationYear;
     }
 
+    public int getId() {
+        return id;
+    }
 }
 

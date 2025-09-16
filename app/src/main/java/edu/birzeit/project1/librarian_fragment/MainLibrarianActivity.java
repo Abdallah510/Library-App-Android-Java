@@ -34,7 +34,7 @@ public class MainLibrarianActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_librarian_main);
 
         drawer = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -42,7 +42,7 @@ public class MainLibrarianActivity extends AppCompatActivity {
         Button btn_reports = findViewById(R.id.btn_reports);
         Button btn_dashboard = findViewById(R.id.btn_dashboard);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new DashboardFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new LibrarianDashboardFragment()).commit();
         navigationView.setCheckedItem(R.id.nav_dashboard);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -52,7 +52,7 @@ public class MainLibrarianActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.nav_dashboard:
-                      //  selectedFragment = new DashboardFragment();
+                            selectedFragment = new LibrarianDashboardFragment();
                         break;
                     case R.id.nav_borrowed_books:
                      //   selectedFragment = new BorrowedBooksFragment();

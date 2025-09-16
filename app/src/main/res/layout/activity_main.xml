@@ -10,12 +10,20 @@
 
 
     <!-- Main content -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Fragment container -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
+
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/fragmentContainerView"
             android:layout_width="match_parent"
@@ -54,12 +62,18 @@
 
     </LinearLayout>
 
-    <!-- Navigation Drawer -->
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:menu="@menu/nav_items" />
+        style="@style/MyNav"
+        app:menu="@menu/nav_items"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
+        app:itemTextAppearance="@style/NavMenuText" />
+
+
 
 </androidx.drawerlayout.widget.DrawerLayout>

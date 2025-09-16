@@ -67,6 +67,7 @@ public class BookCatalogFragment extends Fragment {
 
         if (allBooks != null && allBooks.moveToFirst()) {
             do {
+                int id = Integer.parseInt(allBooks.getString(allBooks.getColumnIndexOrThrow("id")));
                 String title = allBooks.getString(allBooks.getColumnIndexOrThrow("title"));
                 String author = allBooks.getString(allBooks.getColumnIndexOrThrow("author"));
                 String category = allBooks.getString(allBooks.getColumnIndexOrThrow("category"));
@@ -75,7 +76,7 @@ public class BookCatalogFragment extends Fragment {
                 String isbn = allBooks.getString(allBooks.getColumnIndexOrThrow("isbn"));
                 int publicationYear = allBooks.getInt(allBooks.getColumnIndexOrThrow("publication_year"));
 
-                Book book = new Book(title, author, category, availability, coverUrl, isbn, publicationYear);
+                Book book = new Book(id,title, author, category, availability, coverUrl, isbn, publicationYear);
                 bookList.add(book);
             } while (allBooks.moveToNext());
             allBooks.close();
@@ -98,12 +99,13 @@ public class BookCatalogFragment extends Fragment {
         CheckBox checkAvailable = view.findViewById(R.id.check_available);
 
 
-
-        adapter = new BookAdapter(requireContext(), bookList, new BookAdapter.OnItemClickListener() {
+        adapter = new BookAdapter(requireContext(), bookList, true, new BookAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Book book) {
+                // handle click for Add button
             }
         });
+
 
 
 //        String availability = checkAvailable.isChecked() ? "Available" : null;
@@ -181,6 +183,7 @@ public class BookCatalogFragment extends Fragment {
         bookList = new ArrayList<>();
         Cursor someBooks = dataBaseHelper.getFilteredBooksWithSearch(search, category, availability, minYear, maxYear);
         while (someBooks.moveToNext()) {
+            int id = Integer.parseInt(someBooks.getString(someBooks.getColumnIndexOrThrow("id")));
             String title = someBooks.getString(someBooks.getColumnIndexOrThrow("title"));
             String author = someBooks.getString(someBooks.getColumnIndexOrThrow("author"));
             String cat = someBooks.getString(someBooks.getColumnIndexOrThrow("category"));
@@ -189,7 +192,7 @@ public class BookCatalogFragment extends Fragment {
             String isbn = someBooks.getString(someBooks.getColumnIndexOrThrow("isbn"));
             int publicationYear = someBooks.getInt(someBooks.getColumnIndexOrThrow("publication_year"));
 
-            Book book = new Book(title, author, cat, avail, coverUrl, isbn, publicationYear);
+            Book book = new Book(id,title, author, cat, avail, coverUrl, isbn, publicationYear);
             bookList.add(book);
         }
         adapter.updateList(bookList);

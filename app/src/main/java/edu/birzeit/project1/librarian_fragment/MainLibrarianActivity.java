@@ -43,7 +43,7 @@ public class MainLibrarianActivity extends AppCompatActivity {
         Button btn_reports = findViewById(R.id.btn_reports);
         Button btn_dashboard = findViewById(R.id.btn_dashboard);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new DashboardFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new LibrarianDashboardFragment()).commit();
         navigationView.setCheckedItem(R.id.nav_dashboard);
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -52,6 +52,9 @@ public class MainLibrarianActivity extends AppCompatActivity {
                 Fragment selectedFragment = null;
 
                 switch (item.getItemId()) {
+                   case R.id.nav_dashboard:
+                         selectedFragment = new LibrarianDashboardFragment();
+                        break;
                     case R.id.nav_Registration:
                         selectedFragment = new LibrarianRegistrationFragment();
                         break;

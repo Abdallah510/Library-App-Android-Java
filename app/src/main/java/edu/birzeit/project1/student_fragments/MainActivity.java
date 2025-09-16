@@ -10,13 +10,17 @@ import android.view.View;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Objects;
 
 import edu.birzeit.project1.R;
 import edu.birzeit.project1.prelogin.LoginActivity;
@@ -40,6 +44,17 @@ public class MainActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new DashboardFragment()).commit();
         navigationView.setCheckedItem(R.id.nav_dashboard);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setHomeAsUpIndicator(R.drawable.logo); // your hamburger or logo
+        }
+
+        toolbar.setNavigationOnClickListener(v -> drawer.openDrawer(GravityCompat.START));
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -92,9 +107,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if (selectedFragment != null) {
                     getSupportFragmentManager().beginTransaction()
+                            .setCustomAnimations(R.anim.left_slide, R.anim.right_slide)
                             .replace(R.id.fragmentContainerView, selectedFragment)
+                            .addToBackStack(null)
                             .commit();
                 }
+
 
                 item.setChecked(true);
                 drawer.closeDrawer(GravityCompat.START);

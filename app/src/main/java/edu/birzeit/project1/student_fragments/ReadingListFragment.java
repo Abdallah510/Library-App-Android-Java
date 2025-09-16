@@ -1,66 +1,200 @@
 package edu.birzeit.project1.student_fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.Spinner;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import edu.birzeit.project1.database.LibraryDataBase;
 import edu.birzeit.project1.R;
+import edu.birzeit.project1.entities.Book;
+import edu.birzeit.project1.entities.Product;
+import edu.birzeit.project1.prelogin.LoginActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ReadingListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ReadingListFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerView;
+    private BookAdapter adapter;
+    private List<Book> bookList;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private LibraryDataBase dataBaseHelper;
+    private Spinner spinnerSort;
+    private EditText minYearInput, maxYearInput, tvSearchbar;
+    private CheckBox checkAvailable;
 
-    public ReadingListFragment() {
-        // Required empty public constructor
-    }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ReadingListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ReadingListFragment newInstance(String param1, String param2) {
-        ReadingListFragment fragment = new ReadingListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    public ReadingListFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_reading_list, container, false);
+
+
+
+        View view = inflater.inflate(R.layout.fragment_book_catalog, container, false);
+        dataBaseHelper = new LibraryDataBase(requireContext(), LibraryDataBase.DATABASE_NAME, null, 1);
+        Cursor allBooks = dataBaseHelper.getReadingListByStudentId(LoginActivity.logedInId);
+
+        recyclerView = view.findViewById(R.id.recycler_books);
+        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        tvSearchbar = view.findViewById(R.id.search_bar);
+
+
+        spinnerSort = view.findViewById(R.id.spinner_sort);
+        minYearInput = view.findViewById(R.id.min_year);
+        maxYearInput = view.findViewById(R.id.max_year);
+        checkAvailable = view.findViewById(R.id.check_available);
+
+
+
+
+        bookList = new ArrayList<>();
+
+        if (allBooks != null && allBooks.moveToFirst()) {
+            do {
+                int id = Integer.parseInt(allBooks.getString(allBooks.getColumnIndexOrThrow("id")));
+                String title = allBooks.getString(allBooks.getColumnIndexOrThrow("title"));
+                String author = allBooks.getString(allBooks.getColumnIndexOrThrow("author"));
+                String category = allBooks.getString(allBooks.getColumnIndexOrThrow("category"));
+                String availability = allBooks.getString(allBooks.getColumnIndexOrThrow("availability"));
+                String coverUrl = allBooks.getString(allBooks.getColumnIndexOrThrow("cover_url"));
+                String isbn = allBooks.getString(allBooks.getColumnIndexOrThrow("isbn"));
+                int publicationYear = allBooks.getInt(allBooks.getColumnIndexOrThrow("publication_year"));
+
+                Book book = new Book(id,title, author, category, availability, coverUrl, isbn, publicationYear);
+                bookList.add(book);
+            } while (allBooks.moveToNext());
+            allBooks.close();
+        }
+
+        Spinner spinnerSort = view.findViewById(R.id.spinner_sort);
+
+        List<String> spinnerItems = new ArrayList<>();
+        spinnerItems.add("Categories");
+        for (Product product : ConnectionAsyncTask.products) {
+            spinnerItems.add(product.getName());
+        }
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, spinnerItems);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerSort.setAdapter(spinnerAdapter);
+
+        EditText minYearInput = view.findViewById(R.id.min_year);
+        EditText maxYearInput = view.findViewById(R.id.max_year);
+
+        CheckBox checkAvailable = view.findViewById(R.id.check_available);
+
+
+
+        adapter = new BookAdapter(requireContext(), bookList, false, new BookAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Book book) {
+                // handle click for Add button
+            }
+        });
+
+//        String availability = checkAvailable.isChecked() ? "Available" : null;
+//        String category = spinnerSort.getSelectedItemPosition() == 0 ? null : spinnerSort.getSelectedItem().toString();
+//        int minYear = 0;
+//        int maxYear = 9999;
+//
+//        try { minYear = Integer.parseInt(minYearInput.getText().toString()); }
+//        catch (NumberFormatException ignored) {}
+//        try { maxYear = Integer.parseInt(maxYearInput.getText().toString()); }
+//        catch (NumberFormatException ignored) {}
+        recyclerView.setAdapter(adapter);
+        tvSearchbar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                applyFilter();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+
+        minYearInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                applyFilter();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        maxYearInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                applyFilter();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) { }
+        });
+        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                applyFilter();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) { }
+        });
+
+        checkAvailable.setOnCheckedChangeListener((buttonView, isChecked) -> applyFilter());
+
+
+        return view;
+    }
+
+
+    private void applyFilter() {
+        String search = tvSearchbar.getText().toString();
+        String availability = checkAvailable.isChecked() ? "Available" : null;
+        String category = spinnerSort.getSelectedItemPosition() == 0 ? null : spinnerSort.getSelectedItem().toString();
+        int minYear = 0, maxYear = 9999;
+        try { minYear = Integer.parseInt(minYearInput.getText().toString()); } catch (NumberFormatException ignored) { }
+        try { maxYear = Integer.parseInt(maxYearInput.getText().toString()); } catch (NumberFormatException ignored) { }
+
+        bookList = new ArrayList<>();
+        Cursor someBooks = dataBaseHelper.getFilteredBooksWithSearchid(search, category, availability, minYear, maxYear,LoginActivity.logedInId);
+        while (someBooks.moveToNext()) {
+            int id = Integer.parseInt(someBooks.getString(someBooks.getColumnIndexOrThrow("id")));
+            String title = someBooks.getString(someBooks.getColumnIndexOrThrow("title"));
+            String author = someBooks.getString(someBooks.getColumnIndexOrThrow("author"));
+            String cat = someBooks.getString(someBooks.getColumnIndexOrThrow("category"));
+            String avail = someBooks.getString(someBooks.getColumnIndexOrThrow("availability"));
+            String coverUrl = someBooks.getString(someBooks.getColumnIndexOrThrow("cover_url"));
+            String isbn = someBooks.getString(someBooks.getColumnIndexOrThrow("isbn"));
+            int publicationYear = someBooks.getInt(someBooks.getColumnIndexOrThrow("publication_year"));
+
+            Book book = new Book(id,title, author, cat, avail, coverUrl, isbn, publicationYear);
+            bookList.add(book);
+        }
+        adapter.updateList(bookList);
     }
 }

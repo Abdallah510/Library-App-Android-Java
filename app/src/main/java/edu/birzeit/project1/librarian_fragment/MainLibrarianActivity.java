@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -46,6 +47,16 @@ public class MainLibrarianActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.fragmentContainerView, new AnnouncemnetManagerFragment()).commit();
         navigationView.setCheckedItem(R.id.nav_dashboard);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            getSupportActionBar().setHomeAsUpIndicator(R.drawable.logo); // your hamburger or logo
+        }
+
+        toolbar.setNavigationOnClickListener(v -> drawer.openDrawer(GravityCompat.START));
+
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -57,6 +68,9 @@ public class MainLibrarianActivity extends AppCompatActivity {
                         break;
                     case R.id.nav_Registration:
                         selectedFragment = new LibrarianRegistrationFragment();
+                        break;
+                    case R.id.nav_books:
+                        selectedFragment = new LibrarianBookFragment();
                         break;
                     case R.id.nav_students:
                          selectedFragment = new LibrarianStudentManagerFragment();
@@ -99,7 +113,7 @@ public class MainLibrarianActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Fragment selectedFragment = null;
-              //  selectedFragment = new BookCatalogFragment();
+                selectedFragment = new ReportsFragment();
                 if (selectedFragment != null) {
                     getSupportFragmentManager().beginTransaction()
                             .replace(R.id.fragmentContainerView, selectedFragment)

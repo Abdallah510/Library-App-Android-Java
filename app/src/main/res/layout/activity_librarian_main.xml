@@ -14,6 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:theme="?attr/actionBarTheme" />
 
         <!-- Fragment container -->
         <androidx.fragment.app.FragmentContainerView
@@ -60,6 +67,9 @@
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
+        style="@style/MyNav"
+        app:itemTextColor="@color/white"
+        app:itemIconTint="@color/white"
         app:menu="@menu/nav_lib_items" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

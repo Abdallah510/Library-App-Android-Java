@@ -1,8 +1,9 @@
-package edu.birzeit.project1.student_fragments;
+package edu.birzeit.project1.librarian_fragment;
 
 import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,6 +19,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +29,10 @@ import edu.birzeit.project1.R;
 import edu.birzeit.project1.entities.Book;
 import edu.birzeit.project1.entities.Product;
 import edu.birzeit.project1.prelogin.LoginActivity;
+import edu.birzeit.project1.student_fragments.BookAdapter;
+import edu.birzeit.project1.student_fragments.ConnectionAsyncTask;
 
-public class ReadingListFragment extends Fragment {
+public class LibrarianBookFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private BookAdapter adapter;
@@ -37,9 +42,10 @@ public class ReadingListFragment extends Fragment {
     private Spinner spinnerSort;
     private EditText minYearInput, maxYearInput, tvSearchbar;
     private CheckBox checkAvailable;
+    private FloatingActionButton btnAdd;
 
 
-    public ReadingListFragment() { }
+    public LibrarianBookFragment() { }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -47,9 +53,9 @@ public class ReadingListFragment extends Fragment {
 
 
 
-        View view = inflater.inflate(R.layout.fragment_book_catalog, container, false);
+        View view = inflater.inflate(R.layout.fragment_librarian_book, container, false);
         dataBaseHelper = new LibraryDataBase(requireContext(), LibraryDataBase.DATABASE_NAME, null, 1);
-        Cursor allBooks = dataBaseHelper.getReadingListByStudentId(LoginActivity.logedInId);
+        Cursor allBooks = dataBaseHelper.getAllBooks();
 
         recyclerView = view.findViewById(R.id.recycler_books);
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -60,6 +66,8 @@ public class ReadingListFragment extends Fragment {
         minYearInput = view.findViewById(R.id.min_year);
         maxYearInput = view.findViewById(R.id.max_year);
         checkAvailable = view.findViewById(R.id.check_available);
+        btnAdd = view.findViewById(R.id.floatingActionButton);
+
 
 
 
@@ -101,12 +109,14 @@ public class ReadingListFragment extends Fragment {
 
 
 
-        adapter = new BookAdapter(requireContext(), bookList, false,false, new BookAdapter.OnItemClickListener() {
+        adapter = new BookAdapter(requireContext(), bookList, false,true, new BookAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Book book) {
                 // handle click for Add button
             }
         });
+
+
 
 //        String availability = checkAvailable.isChecked() ? "Available" : null;
 //        String category = spinnerSort.getSelectedItemPosition() == 0 ? null : spinnerSort.getSelectedItem().toString();
@@ -118,6 +128,24 @@ public class ReadingListFragment extends Fragment {
 //        try { maxYear = Integer.parseInt(maxYearInput.getText().toString()); }
 //        catch (NumberFormatException ignored) {}
         recyclerView.setAdapter(adapter);
+
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EditBookFragment dialog = new EditBookFragment();
+                Bundle args = new Bundle();
+                args.putInt("book_id", -1);
+                args.putInt("student_id", LoginActivity.logedInId);
+                dialog.setArguments(args);
+                BookAdapter.BOOKADAPTER = adapter;
+
+                dialog.show(((AppCompatActivity) view.getContext())
+                        .getSupportFragmentManager(), "EditBookDialog");
+
+            }
+        });
+
         tvSearchbar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -181,7 +209,7 @@ public class ReadingListFragment extends Fragment {
         try { maxYear = Integer.parseInt(maxYearInput.getText().toString()); } catch (NumberFormatException ignored) { }
 
         bookList = new ArrayList<>();
-        Cursor someBooks = dataBaseHelper.getFilteredBooksWithSearchid(search, category, availability, minYear, maxYear,LoginActivity.logedInId);
+        Cursor someBooks = dataBaseHelper.getFilteredBooksWithSearch(search, category, availability, minYear, maxYear);
         while (someBooks.moveToNext()) {
             int id = Integer.parseInt(someBooks.getString(someBooks.getColumnIndexOrThrow("id")));
             String title = someBooks.getString(someBooks.getColumnIndexOrThrow("title"));

@@ -2,6 +2,8 @@ package edu.birzeit.project1.librarian_fragment;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import java.util.List;
 import edu.birzeit.project1.R;
 import edu.birzeit.project1.database.LibraryDataBase;
 import edu.birzeit.project1.entities.Reservation;
+import edu.birzeit.project1.student_fragments.BookAdapter;
 
 public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.ViewHolder> {
 
@@ -137,32 +140,36 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
             @Override
             public void onClick(View v) {
                 int currentPosition = holder.getAdapterPosition();
-                if("Pending".equalsIgnoreCase(reservation.getStatus())){
+                if ("Pending".equalsIgnoreCase(reservation.getStatus())) {
                     db.updateStatus(reservation.getId(), "Active");
                     reservation.setStatus("Active");
-                }else{
+                } else {
                     db.updateStatus(reservation.getId(), "Extended");
                     reservation.setStatus("Extended");
+
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-                    LocalDate date = LocalDate.parse(reservation.getDueDate(), formatter);
-                    int year = date.getYear();
-                    int month = date.getMonthValue();
-                    int day = date.getDayOfMonth();
-                    day = day + 7;
-                    if(day > 30){
-                        month++;
-                        day=day%30;
-                    }
-                    if (month > 12) {
-                        year++;
-                        month = 1;
-                    }
-                    String newDate = year + "/" + month + "/" + day;
-                    db.updateDueDate(reservation.getId(), newDate);
-                    reservation.setDueDate(newDate);
+                    LocalDate dueDate = LocalDate.parse(reservation.getDueDate(), formatter);
+
+                    LocalDate newDueDate = dueDate.plusWeeks(1);
+
+                    String newDateStr = newDueDate.format(formatter);
+
+                    db.updateDueDate(reservation.getId(), newDateStr);
+                    reservation.setDueDate(newDateStr);
                 }
                 notifyItemChanged(currentPosition);
+
+                Cursor thisBook = db.getBookById(reservation.getBookId());
+                if (thisBook != null && thisBook.moveToFirst()){
+                    SQLiteDatabase sqlDb = db.getWritableDatabase();
+                    sqlDb.execSQL("UPDATE Books SET availability = 'Borrowed' WHERE id = ?", new Object[]{reservation.getBookId()});
+                }
+
+                if (thisBook != null) thisBook.close();
             }
+
+
+
         });
         btnReject.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -221,7 +228,12 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     }
     public static boolean isOverdue(String dueDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        Log.i("DATE", dueDate);
         LocalDate date = LocalDate.parse(dueDate, formatter);
+        LocalDate.parse(dueDate, formatter);
+
+
+
         LocalDate currentDate = LocalDate.now();
 
         int dueYear = date.getYear();

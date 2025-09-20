@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="#212D40">
+
+    <EditText
+        android:id="@+id/etAnnouncementTitle"
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:hint="Title" />
+
+    <EditText
+        android:id="@+id/etAnnouncementMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Message"
+        android:inputType="textMultiLine"
+        android:minLines="3"
+        android:gravity="top" />
+
+</LinearLayout>

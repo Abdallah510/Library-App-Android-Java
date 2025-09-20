@@ -79,6 +79,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 ivLogo.setVisibility(View.GONE);
                 ConnectionAsyncTask connectionAsyncTask = new ConnectionAsyncTask(WelcomeActivity.this);
                 try {
+
                     connectionAsyncTask.execute(APILINK);
                     // https://api.jsonsilo.com/demo/3e0eced2-0dea-4967-acc6-1d123e99e709
                     // https://mocki.io/v1/dbf9b62e-ec38-4726-ab95-407098ba5974

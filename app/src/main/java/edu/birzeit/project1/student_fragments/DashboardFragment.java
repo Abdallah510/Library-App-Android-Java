@@ -1,61 +1,63 @@
 package edu.birzeit.project1.student_fragments;
 
+import android.database.Cursor;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import edu.birzeit.project1.R;
+import edu.birzeit.project1.database.LibraryDataBase;
+import edu.birzeit.project1.entities.Announcement;
+import edu.birzeit.project1.entities.Reservation;
+import edu.birzeit.project1.librarian_fragment.ReservationAdapter;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link DashboardFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class DashboardFragment extends Fragment {
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-    private String mParam1;
-    private String mParam2;
+    private RecyclerView recyclerView;
+    private AnnouncementAdapter adapter;
+    List<Announcement> announcements = new ArrayList<>();
+    private TextView tvEmpty;
 
-    public DashboardFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment DashboardFragment.
-     */
-    public static DashboardFragment newInstance(String param1, String param2) {
-        DashboardFragment fragment = new DashboardFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerAnnouncements);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        tvEmpty = view.findViewById(R.id.tvEmptyAnnouncement);
+        LibraryDataBase db = new LibraryDataBase(getContext(), LibraryDataBase.DATABASE_NAME, null, 1);
+        Cursor cursor = db.getAllAnnouncements();
+        while(cursor.moveToNext()){
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+            String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+            String message = cursor.getString(cursor.getColumnIndexOrThrow("message"));
+            String date = cursor.getString(cursor.getColumnIndexOrThrow("date_posted"));
+            announcements.add(new Announcement(id,title, message, date));
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dashboard, container, false);
+        if(announcements.isEmpty() || announcements == null){
+            tvEmpty.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        }else{
+            tvEmpty.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            adapter = new AnnouncementAdapter(getContext(), announcements);
+            recyclerView.setAdapter(adapter);
+        }
+        return view;
     }
 }

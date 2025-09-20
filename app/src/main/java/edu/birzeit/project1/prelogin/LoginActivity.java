@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     public static int logedInId;
     public static String adminEmail = "librarian@library.edu";
     public static String adminPass = "Library123!";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                         finish();
                     }
+                    return;
                 }
                 if(cbLibrarian.isChecked()){
                     if (loginIdEmail.matches("\\d{8}")){

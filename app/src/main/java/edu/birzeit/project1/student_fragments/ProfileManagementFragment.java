@@ -63,11 +63,11 @@ public class ProfileManagementFragment extends Fragment {
                 for (char c : allStudents.getString(5).toCharArray())
                     decryptedPassword += (char) (c - 3);
                 etPassword.setText(decryptedPassword);
-                Cursor allBorrowings = db.getAllBorrowedBooks();
+                Cursor allBorrowings = db.getAllReservations();
                 while (allBorrowings.moveToNext()) {
                     if (logedInId == allBorrowings.getInt(1)) {
                         borrowedBooks++;
-                        switch (allBorrowings.getString(7).toLowerCase()) {
+                        switch (allBorrowings.getString(5).toLowerCase()) {
                             case "active":
                                 active++;
                                 break;

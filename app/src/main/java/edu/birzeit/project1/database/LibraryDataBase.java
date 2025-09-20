@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.birzeit.project1.entities.Announcement;
 import edu.birzeit.project1.entities.Book;
 import edu.birzeit.project1.entities.Librarian;
 import edu.birzeit.project1.entities.Student;
@@ -68,6 +70,8 @@ public class LibraryDataBase extends SQLiteOpenHelper {
                 "status TEXT, " +
                 "collection_method TEXT, " +
                 "notes TEXT, " +
+                "return_date TEXT DEFAULT NULL, " +
+                "fine REAL DEFAULT 0, " +
                 "FOREIGN KEY(student_id) REFERENCES Students(id), " +
                 "FOREIGN KEY(book_id) REFERENCES Books(id)" +
                 ");");
@@ -82,19 +86,34 @@ public class LibraryDataBase extends SQLiteOpenHelper {
                 "FOREIGN KEY(book_id) REFERENCES Books(id)" +
                 ");");
 
-        // Borrowings Table
-        db.execSQL("CREATE TABLE Borrowings (" +
+        //Announcement Table
+        db.execSQL("CREATE TABLE Announcements (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "student_id INTEGER NOT NULL, " +
-                "book_id INTEGER NOT NULL, " +
-                "borrow_date TEXT NOT NULL, " +
-                "due_date TEXT NOT NULL, " +
-                "return_date TEXT, " +
-                "status TEXT CHECK(status IN ('Active','Overdue','Returned','Extended')), " +
-                "fine_amount REAL DEFAULT 0, " +
-                "FOREIGN KEY(student_id) REFERENCES Students(id), " +
-                "FOREIGN KEY(book_id) REFERENCES Books(id)" +
+                "title TEXT NOT NULL, " +
+                "message TEXT NOT NULL, " +
+                "date_posted TEXT NOT NULL" +
                 ");");
+    }
+
+
+    //Announcement Methods
+    public Cursor getAllAnnouncements() {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery("SELECT * FROM Announcements", null);
+    }
+    public int insertAnnouncement(Announcement announcement) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("title", announcement.getTitle());
+        values.put("message", announcement.getMessage());
+        values.put("date_posted", announcement.getDatePosted());
+        db.insert("Announcements", null, values);
+        db.close();
+        return announcement.getId();
+    }
+    public void deleteAnnouncement(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("Announcements", "id = ?", new String[]{String.valueOf(id)});
     }
 
     // ================== Student Methods ==================
@@ -275,14 +294,6 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         return cursor;
     }
 
-
-
-    // ================== Borrowings Methods ==================
-    public Cursor getAllBorrowedBooks() {
-        SQLiteDatabase db = getReadableDatabase();
-        return db.rawQuery("SELECT * FROM Borrowings", null);
-    }
-
     // ================== Reservations Methods ==================
     public boolean insertReservation(int studentId, int bookId, int durationWeeks, String collectionMethod, String notes) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -306,7 +317,38 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         db.close();
         return result != -1;
     }
-
+    public Cursor getAllReservations() {
+        SQLiteDatabase db = getReadableDatabase();
+        return db.rawQuery("SELECT * FROM Reservations", null);
+    }
+    public void updateStatus(int reservationId, String newStatus) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("status", newStatus);
+        db.update("Reservations", values, "id = ?", new String[]{String.valueOf(reservationId)});
+        db.close();
+    }
+    public void updateReturnDate(int reservationId, String returnDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("return_date", returnDate);
+        db.update("Reservations", values, "id = ?", new String[]{String.valueOf(reservationId)});
+        db.close();
+    }
+    public void updateDueDate(int reservationId, String newDueDate) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("due_date", newDueDate);
+        db.update("Reservations", values, "id = ?", new String[]{String.valueOf(reservationId)});
+        db.close();
+    }
+    public void updateFine(int reservationId, double newFine) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("fine", newFine);
+        db.update("Reservations", values, "id = ?", new String[]{String.valueOf(reservationId)});
+        db.close();
+    }
     // ================== Librarian Methods ==================
     public Cursor getAllLibrarians() {
         SQLiteDatabase db = getReadableDatabase();

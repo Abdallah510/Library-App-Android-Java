@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -29,12 +31,10 @@ public class LibrarianStudentManagerFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_librarian_student_manager, container, false);
-
         LibraryDataBase db = new LibraryDataBase(requireContext(), LibraryDataBase.DATABASE_NAME, null, 1);
-
         recyclerView = view.findViewById(R.id.recyclerViewStudents);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        TextView tvEmpty = view.findViewById(R.id.tvNoStudents);
         studentList = new ArrayList<>();
 
         Cursor allStudents = db.getAllStudents();
@@ -53,11 +53,15 @@ public class LibrarianStudentManagerFragment extends Fragment {
             Student student = new Student(id, universityId, firstName, lastName, email,passwordHash, department, level, phoneNumber, profilePicture);
             studentList.add(student);
         }
-        allStudents.close();
-
-        adapter = new StudentAdapter(requireContext(), studentList);
-        recyclerView.setAdapter(adapter);
-
+        if (studentList == null || studentList.isEmpty()) {
+            tvEmpty.setVisibility(View.VISIBLE);
+            recyclerView.setVisibility(View.GONE);
+        } else {
+            tvEmpty.setVisibility(View.GONE);
+            recyclerView.setVisibility(View.VISIBLE);
+            adapter = new StudentAdapter(requireContext(), studentList);
+            recyclerView.setAdapter(adapter);
+        }
         return view;
     }
 }

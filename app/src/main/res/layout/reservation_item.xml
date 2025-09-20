@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="12dp"
+    card_view:cardElevation="6dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#212D40">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <!-- Book Cover -->
+            <ImageView
+                android:id="@+id/imgBookCover"
+                android:layout_width="119dp"
+                android:layout_height="211dp"
+                android:layout_marginEnd="12dp"
+                android:contentDescription="Book Cover"
+                android:scaleType="centerCrop" />
+
+            <!-- Info Section -->
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <!-- Book Title -->
+                <TextView
+                    android:id="@+id/tvBookTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Book Title"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:layout_marginBottom="4dp" />
+
+                <!-- Student Info -->
+                <TextView
+                    android:id="@+id/tvStudentName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Student Name"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvUniversityId"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Univ. ID: "
+                    android:textSize="14sp"
+                    android:layout_marginBottom="6dp" />
+
+                <!-- Reservation Info -->
+                <TextView
+                    android:id="@+id/tvReservationDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Reserved on: "
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvDueDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Due: "
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvReturnDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Returned: "
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvFine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fine: $0.0"
+                    android:textSize="14sp"
+                    android:layout_marginBottom="6dp" />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status: "
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="4dp" />
+
+                <TextView
+                    android:id="@+id/tvCollectionMethod"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Collection: "
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Notes: "
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Buttons Section -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="end"
+            android:weightSum="3">
+
+            <Button
+                android:id="@+id/btnApprove"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Approve"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnReject"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Reject"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnReturn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Returned" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

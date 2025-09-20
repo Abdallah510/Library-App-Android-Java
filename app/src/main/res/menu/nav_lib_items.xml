@@ -13,8 +13,8 @@
         android:id="@+id/nav_LibraryInfo"
         android:title="LibraryInfo" />
     <item
-        android:id="@+id/nav_reading_list"
-        android:title="Reservations" />
+        android:id="@+id/nav_ReservationManagement"
+        android:title="Reservation" />
     <item
         android:id="@+id/nav_new_arrivals"
         android:title="Report" />

@@ -24,9 +24,7 @@
             android:theme="@style/Theme.Project1NoAction" />
         <activity
             android:name=".librarian_fragment.MainLibrarianActivity"
-            android:exported="false" />
-        <activity
-            android:name=".librarian_fragment.MainLibrarianActivity"
+            android:theme="@style/Theme.Project1NoAction"
             android:exported="false" />
         <activity
             android:name=".prelogin.WelcomeActivity"

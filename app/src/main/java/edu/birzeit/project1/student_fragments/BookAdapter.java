@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment;
 import edu.birzeit.project1.R;
 import edu.birzeit.project1.database.LibraryDataBase;
 import edu.birzeit.project1.entities.Book;
+import edu.birzeit.project1.librarian_fragment.EditBookFragment;
 import edu.birzeit.project1.prelogin.LoginActivity;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder> {
@@ -42,12 +43,16 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         void onItemClick(Book book);
     }
     private boolean btn_del_or_Add;
+    private boolean btn_admin_control;
 
-    public BookAdapter(Context context, List<Book> books,boolean btn_del_or_Add, OnItemClickListener listener) {
+    public static BookAdapter BOOKADAPTER;
+
+    public BookAdapter(Context context, List<Book> books,boolean btn_del_or_Add,boolean btn_admin_control, OnItemClickListener listener) {
         this.context = context;
         this.books = books;
         this.listener = listener;
         this.btn_del_or_Add = btn_del_or_Add;
+        this.btn_admin_control =btn_admin_control;
     }
 
     @NonNull
@@ -77,14 +82,31 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
 
         Picasso.get().load(book.getCoverUrl()).into(holder.imgCover);
 
-        if(!btn_del_or_Add){
+        holder.btnEdit.setVisibility(View.GONE);
+        holder.btnDelete.setVisibility(View.GONE);
+
+        if(btn_admin_control){
             holder.btnAddFav.setVisibility(View.GONE);
-            holder.btnRemove.setVisibility(View.VISIBLE);
-        }
-        else{
-            holder.btnAddFav.setVisibility(View.VISIBLE);
             holder.btnRemove.setVisibility(View.GONE);
+            holder.btnShare.setVisibility(View.GONE);
+            holder.btnReserve.setVisibility(View.GONE);
+            holder.btnEdit.setVisibility(View.VISIBLE);
+            holder.btnDelete.setVisibility(View.VISIBLE);
         }
+        else {
+            if(!btn_del_or_Add){
+                holder.btnAddFav.setVisibility(View.GONE);
+                holder.btnRemove.setVisibility(View.VISIBLE);
+            }
+            else{
+                holder.btnAddFav.setVisibility(View.VISIBLE);
+                holder.btnRemove.setVisibility(View.GONE);
+            }
+
+        }
+        if (book.getAvailability().equals("Borrowed"))
+            holder.btnReserve.setVisibility(View.GONE);
+
 
         holder.btnReserve.setOnClickListener(v -> {
             Animation bounce = AnimationUtils.loadAnimation(v.getContext(), R.anim.bounce);
@@ -124,13 +146,28 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             Intent shareIntent = new Intent(Intent.ACTION_SEND);
             shareIntent.setType("text/plain");
             String appName = context.getString(R.string.app_name);
-
             String shareText = "Check out this book: "+holder.tvTitle.getText()+" by "+holder.tvAuthor.getText()+" on "+appName+"!";
             shareIntent.putExtra(Intent.EXTRA_TEXT, shareText);
-
             v.getContext().startActivity(Intent.createChooser(shareIntent, "Share via"));
         });
+        holder.btnEdit.setOnClickListener(v -> {
 
+            EditBookFragment dialog = new EditBookFragment();
+            Bundle args = new Bundle();
+            args.putInt("book_id", book.getId());
+            args.putInt("student_id", LoginActivity.logedInId);
+            args.putInt("position", position);
+            BOOKADAPTER = this;
+            dialog.setArguments(args);
+
+            dialog.show(((AppCompatActivity) v.getContext())
+                    .getSupportFragmentManager(), "EditBookDialog");
+        });
+        holder.btnDelete.setOnClickListener(v -> {
+            LibraryDataBase db =new LibraryDataBase(context,LibraryDataBase.DATABASE_NAME,null,1);
+            removeBook(position);
+            db.deleteBook(book.getId());
+        });
 
     }
 
@@ -144,7 +181,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         ImageView imgCover;
         TextView tvTitle, tvAuthor, tvCategory, tvAvailability, tvISBN, tvPubYear;
         Button btnReserve;
-        Button btnAddFav,btnRemove,btnShare;
+        Button btnAddFav,btnRemove,btnShare,btnEdit,btnDelete;
 
         public BookViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -159,6 +196,8 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             btnAddFav = itemView.findViewById(R.id.btn_Add);
             btnRemove = itemView.findViewById(R.id.btn_remove);
             btnShare = itemView.findViewById(R.id.btn_share);
+            btnEdit = itemView.findViewById(R.id.btn_edit);
+            btnDelete = itemView.findViewById(R.id.btn_delete);
 
         }
     }
@@ -174,6 +213,11 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         books.clear();
         books.addAll(newList);
         notifyDataSetChanged();
+    }
+
+    public void updateBook(int position,Book book) {
+        books.set(position, book);
+        notifyItemChanged(position);
     }
 
 }

@@ -107,7 +107,7 @@ public class NewArrivalsFragment extends Fragment {
         CheckBox checkAvailable = view.findViewById(R.id.check_available);
 
 
-        adapter = new BookAdapter(requireContext(), bookList, true, new BookAdapter.OnItemClickListener() {
+        adapter = new BookAdapter(requireContext(), bookList, true,false, new BookAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Book book) {
                 // handle click for Add button

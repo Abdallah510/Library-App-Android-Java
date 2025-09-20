@@ -7,6 +7,9 @@
         android:id="@+id/nav_Registration"
         android:title="Registration" />
     <item
+        android:id="@+id/nav_books"
+        android:title="Books" />
+    <item
         android:id="@+id/nav_students"
         android:title="Students" />
     <item

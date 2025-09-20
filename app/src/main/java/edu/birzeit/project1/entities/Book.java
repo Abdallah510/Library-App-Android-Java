@@ -37,7 +37,9 @@ public class Book {
         this.isbn = isbn;
         this.publicationYear = publicationYear;
     }
-
+    public void setID(int ID) {
+        this.id = ID;
+    }
     public String getTitle() {
         return title;
     }

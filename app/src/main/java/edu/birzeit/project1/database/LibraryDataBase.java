@@ -144,7 +144,7 @@ public class LibraryDataBase extends SQLiteOpenHelper {
     }
 
     // ================== Book Methods ==================
-    public void insertBook(Book book) {
+    public long insertBook(Book book) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("title", book.getTitle());
@@ -154,8 +154,37 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         values.put("cover_url", book.getCoverUrl());
         values.put("isbn", book.getIsbn());
         values.put("publication_year", book.getPublicationYear());
-        db.insert("Books", null, values);
+        return db.insert("Books", null, values);
+
+    }
+
+    public void updateBook(int bookId, String title, String author, String isbn,
+                           String category, String availability, String coverUrl, int publicationYear) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("title", title);
+        values.put("author", author);
+        values.put("isbn", isbn);
+        values.put("category", category);
+        values.put("availability", availability);
+        values.put("cover_url", coverUrl);
+        values.put("publication_year", publicationYear);
+
+        db.update("Books", values, "id = ?", new String[]{String.valueOf(bookId)});
         db.close();
+    }
+    public void deleteBook(int bookId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete("Books", "id = ?", new String[]{String.valueOf(bookId)});
+        db.close();
+    }
+
+
+    public Cursor getBookById(int id) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM Books WHERE id = ?", new String[]{String.valueOf(id)});
+        return cursor;
     }
 
     public Cursor getAllBooks() {

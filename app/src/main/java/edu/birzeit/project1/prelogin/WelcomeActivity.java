@@ -28,6 +28,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
     Button btnConnect;
     ProgressBar progressBar;
+    static String APILINK = "https://mocki.io/v1/af54077b-7fc7-447f-b131-89d664069995";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,7 +79,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 ivLogo.setVisibility(View.GONE);
                 ConnectionAsyncTask connectionAsyncTask = new ConnectionAsyncTask(WelcomeActivity.this);
                 try {
-                    connectionAsyncTask.execute("https://api.jsonsilo.com/demo/224e4af1-172d-46d9-ae31-aeb1bdfd36e0");
+                    connectionAsyncTask.execute(APILINK);
                     // https://api.jsonsilo.com/demo/3e0eced2-0dea-4967-acc6-1d123e99e709
                     // https://mocki.io/v1/dbf9b62e-ec38-4726-ab95-407098ba5974
                     Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class); startActivity(intent);

@@ -102,6 +102,19 @@
             android:layout_height="wrap_content"
             android:text="Share"
             android:textSize="12sp"/>
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:textSize="12sp"/>
+        <Button
+            android:id="@+id/btn_delete"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="DELETE"
+            android:textColor="@color/red"
+            android:textSize="12sp"/>
     </LinearLayout>
 
 

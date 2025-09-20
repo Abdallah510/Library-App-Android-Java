@@ -64,7 +64,7 @@ public class MainLibrarianActivity extends AppCompatActivity {
 
                 switch (item.getItemId()) {
                     case R.id.nav_dashboard:
-                         selectedFragment = new AnnouncemnetManagerFragment();
+                        selectedFragment = new AnnouncemnetManagerFragment();
                         break;
                     case R.id.nav_Registration:
                         selectedFragment = new LibrarianRegistrationFragment();
@@ -73,7 +73,7 @@ public class MainLibrarianActivity extends AppCompatActivity {
                         selectedFragment = new LibrarianBookFragment();
                         break;
                     case R.id.nav_students:
-                         selectedFragment = new LibrarianStudentManagerFragment();
+                        selectedFragment = new LibrarianStudentManagerFragment();
                         break;
                     case R.id.nav_LibraryInfo:
                         selectedFragment = new LibraryInfoManagerFragment();

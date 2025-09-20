@@ -5,6 +5,8 @@ import static java.security.AccessController.getContext;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,15 +114,39 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
             Animation bounce = AnimationUtils.loadAnimation(v.getContext(), R.anim.bounce);
             v.startAnimation(bounce);
 
+            SQLiteDatabase db = new LibraryDataBase(v.getContext(), LibraryDataBase.DATABASE_NAME, null, 1).getReadableDatabase();
+            Cursor cursor = db.rawQuery(
+                    "SELECT COUNT(*) FROM Reservations WHERE student_id = ? AND book_id = ? AND status NOT IN ('Returned', 'Rejected')",
+                    new String[]{String.valueOf(LoginActivity.logedInId), String.valueOf(book.getId())}
+            );
+
+            boolean canReserve = true;
+            if (cursor != null) {
+                if (cursor.moveToFirst()) {
+                    canReserve = (cursor.getInt(0) == 0);
+                }
+                cursor.close();
+            }
+            db.close();
+
+            if (!canReserve) {
+                Toast.makeText(v.getContext(), "You have already reserved this book.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
             ReserveFormFragment dialog = new ReserveFormFragment();
             Bundle args = new Bundle();
             args.putInt("book_id", book.getId());
             args.putInt("student_id", LoginActivity.logedInId);
+            args.putInt("position", position);
+            BOOKADAPTER = this;
             dialog.setArguments(args);
 
-            dialog.show(((AppCompatActivity) v.getContext())
-                    .getSupportFragmentManager(), "ReservationDialog");
+            dialog.show(((AppCompatActivity) v.getContext()).getSupportFragmentManager(), "ReservationDialog");
+
+            Toast.makeText(v.getContext(), "Reservation form opened.", Toast.LENGTH_SHORT).show();
         });
+
         holder.btnAddFav.setOnClickListener(v ->{
 
             Animation bounce = AnimationUtils.loadAnimation(v.getContext(), R.anim.cover_flip);
@@ -219,5 +245,12 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.BookViewHolder
         books.set(position, book);
         notifyItemChanged(position);
     }
+
+    public void updateBookAvailability(int position,String avail) {
+        books.get(position).setAvailability(avail);
+        notifyItemChanged(position);
+    }
+
+
 
 }

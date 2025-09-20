@@ -1,5 +1,7 @@
 package edu.birzeit.project1.student_fragments;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +23,7 @@ public class ReserveFormFragment extends DialogFragment {
 
     private int bookId = BookAdapter.BOOK_ID;
     private int studentId = LoginActivity.logedInId;
+    private int position;
 
     private Spinner spinnerDuration;
     private RadioGroup radioCollectionMethod;
@@ -39,6 +42,7 @@ public class ReserveFormFragment extends DialogFragment {
         if (getArguments() != null) {
             bookId = getArguments().getInt("book_id");
             studentId = getArguments().getInt("student_id");
+            position = getArguments().getInt("position");
         }
 
         // Bind views
@@ -46,8 +50,23 @@ public class ReserveFormFragment extends DialogFragment {
         radioCollectionMethod = view.findViewById(R.id.radioCollectionMethod);
         editNotes = view.findViewById(R.id.editNotes);
         btnConfirm = view.findViewById(R.id.btnConfirm);
+        LibraryDataBase db =new LibraryDataBase(requireContext(),LibraryDataBase.DATABASE_NAME,null,1);
+        btnConfirm.setOnClickListener(v -> {
+            Cursor thisBook = db.getBookById(bookId);
 
-        btnConfirm.setOnClickListener(v -> saveReservation());
+
+            saveReservation();
+            if (thisBook != null && thisBook.moveToFirst()) {
+                String availability = "Reserved";
+
+                BookAdapter.BOOKADAPTER.updateBookAvailability(position, availability);
+            }
+
+            if (thisBook != null) thisBook.close();
+            dismiss();
+        });
+
+
 
         return view;
     }
@@ -63,7 +82,10 @@ public class ReserveFormFragment extends DialogFragment {
         String notes = editNotes.getText().toString();
 
 
+
         LibraryDataBase db =new LibraryDataBase(requireContext(),LibraryDataBase.DATABASE_NAME,null,1);
+        SQLiteDatabase sqlDb = db.getWritableDatabase();
+        sqlDb.execSQL("UPDATE Books SET availability = 'Reserved' WHERE id = ?", new Object[]{bookId});
         boolean success = db.insertReservation(studentId, bookId, durationWeeks, collectionMethod, notes);
 
         if (success) {

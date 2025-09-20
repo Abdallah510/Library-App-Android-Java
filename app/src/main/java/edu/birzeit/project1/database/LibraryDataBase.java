@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -328,16 +331,16 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        long now = System.currentTimeMillis();
-        long due = now + durationWeeks * 7L * 24 * 60 * 60 * 1000;
+        LocalDate now = LocalDate.now();
 
-        String reservationDate = new java.text.SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date(now));
-        String dueDate = new java.text.SimpleDateFormat("yyyy/MM/dd").format(new java.util.Date(due));
+        LocalDate dueDate = now.plusWeeks(durationWeeks);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
         values.put("student_id", studentId);
         values.put("book_id", bookId);
-        values.put("reservation_date", reservationDate);
-        values.put("due_date", dueDate);
+        values.put("reservation_date", now.format(formatter));
+        values.put("due_date", dueDate.format(formatter));
         values.put("status", "Pending");
         values.put("collection_method", collectionMethod);
         values.put("notes", notes);
@@ -346,6 +349,7 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         db.close();
         return result != -1;
     }
+
     public Cursor getAllReservations() {
         SQLiteDatabase db = getReadableDatabase();
         return db.rawQuery("SELECT * FROM Reservations", null);

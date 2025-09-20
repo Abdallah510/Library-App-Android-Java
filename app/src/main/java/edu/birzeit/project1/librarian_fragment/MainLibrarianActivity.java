@@ -81,9 +81,6 @@ public class MainLibrarianActivity extends AppCompatActivity {
                     case R.id.nav_ReservationManagement:
                         selectedFragment =  new LibrarianReservationManagementFragment();
                         break;
-                    case R.id.nav_new_arrivals:
-                        //     selectedFragment = new NewArrivalsFragment();
-                        break;
                     case R.id.nav_logout:
                         new AlertDialog.Builder(MainLibrarianActivity.this)
                                 .setTitle("Logout")

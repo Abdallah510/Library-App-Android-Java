@@ -64,14 +64,14 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
         }
         if(!"Pending Extend".equalsIgnoreCase(reservation.getStatus()) && !"Rejected".equalsIgnoreCase(reservation.getStatus())
                 && !"Returned".equalsIgnoreCase(reservation.getStatus())){
-            if (isOverdue(reservation.getDueDate())) {
+            if (db.isOverdue(reservation.getDueDate())) {
                 if (!"Overdue".equalsIgnoreCase(reservation.getStatus())) {
                     int currentPosition = holder.getAdapterPosition();
                     db.updateStatus(reservation.getId(), "Overdue");
                     db.updateFine(reservation.getId(), reservation.getFineAmount() + 50);
                     reservation.setStatus("Overdue");
                     reservation.setFineAmount(reservation.getFineAmount() + 50);
-                    notifyItemChanged(currentPosition);
+                    holder.itemView.post(() -> notifyItemChanged(currentPosition));
                 }
             }
         }
@@ -182,7 +182,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
                     db.updateStatus(reservation.getId(), "Active");
                     reservation.setStatus("Active");
                 }
-                notifyItemChanged(currentPosition);
+                holder.itemView.post(() -> notifyItemChanged(currentPosition));
             }
         });
         btnReturn.setOnClickListener(new View.OnClickListener() {
@@ -195,7 +195,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
                 db.updateReturnDate(reservation.getId(), currentDate);
                 reservation.setStatus("Returned");
                 reservation.setReturnDate(currentDate);
-                notifyItemChanged(currentPosition);
+                holder.itemView.post(() -> notifyItemChanged(currentPosition));
             }
         });
 
@@ -225,38 +225,5 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
             tvFine = itemView.findViewById(R.id.tvFine);
             tvReturnDate = itemView.findViewById(R.id.tvReturnDate);
         }
-    }
-    public static boolean isOverdue(String dueDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        Log.i("DATE", dueDate);
-        LocalDate date = LocalDate.parse(dueDate, formatter);
-        LocalDate.parse(dueDate, formatter);
-
-
-
-        LocalDate currentDate = LocalDate.now();
-
-        int dueYear = date.getYear();
-        int dueMonth = date.getMonthValue();
-        int dueDay = date.getDayOfMonth();
-
-        int nowYear = currentDate.getYear();
-        int nowMonth = currentDate.getMonthValue();
-        int nowDay = currentDate.getDayOfMonth();
-
-
-        if (nowYear > dueYear) {
-            return true;
-        } else if (nowYear == dueYear) {
-            if (nowMonth > dueMonth) {
-                return true;
-            } else if (nowMonth == dueMonth) {
-                if (nowDay > dueDay) {
-                    return true;
-                }
-            }
-        }
-        return false;
-
     }
 }

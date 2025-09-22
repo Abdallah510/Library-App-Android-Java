@@ -112,7 +112,6 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         values.put("message", announcement.getMessage());
         values.put("date_posted", announcement.getDatePosted());
         db.insert("Announcements", null, values);
-        db.close();
         return announcement.getId();
     }
     public void deleteAnnouncement(int id) {
@@ -133,7 +132,6 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         values.put("level", student.getLevel());
         values.put("phone_number", student.getPhoneNumber());
         db.insert("Students", null, values);
-        db.close();
     }
 
     public void updateStudent(String firstName, String lastName, String passwordHash, String phoneNumber, int studentId) {
@@ -144,7 +142,6 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         values.put("password_hash", passwordHash);
         values.put("phone_number", phoneNumber);
         db.update("Students", values, "id = ?", new String[]{String.valueOf(studentId)});
-        db.close();
     }
 
     public void updateStudentPhoto(byte[] photoBytes, int id) {
@@ -152,7 +149,6 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put("profile_picture", photoBytes);
         db.update("Students", cv, "id=?", new String[]{String.valueOf(id)});
-        db.close();
     }
 
     public Cursor getAllStudents() {
@@ -163,7 +159,6 @@ public class LibraryDataBase extends SQLiteOpenHelper {
     public void deleteStudentById(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("Students", "id = ?", new String[]{String.valueOf(id)});
-        db.close();
     }
 
     // ================== Book Methods ==================
@@ -195,12 +190,10 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         values.put("publication_year", publicationYear);
 
         db.update("Books", values, "id = ?", new String[]{String.valueOf(bookId)});
-        db.close();
     }
     public void deleteBook(int bookId) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete("Books", "id = ?", new String[]{String.valueOf(bookId)});
-        db.close();
     }
 
 
@@ -347,7 +340,6 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         values.put("notes", notes);
 
         long result = db.insert("Reservations", null, values);
-        db.close();
         return result != -1;
     }
 
@@ -454,7 +446,6 @@ public class LibraryDataBase extends SQLiteOpenHelper {
                 "student_id = ? AND book_id = ?",
                 new String[]{String.valueOf(studentId), String.valueOf(bookId)}
         );
-        db.close();
         return rowsAffected > 0;
     }
 

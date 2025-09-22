@@ -359,21 +359,18 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("status", newStatus);
         db.update("Reservations", values, "id = ?", new String[]{String.valueOf(reservationId)});
-        db.close();
     }
     public void updateReturnDate(int reservationId, String returnDate) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("return_date", returnDate);
         db.update("Reservations", values, "id = ?", new String[]{String.valueOf(reservationId)});
-        db.close();
     }
     public void updateDueDate(int reservationId, String newDueDate) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("due_date", newDueDate);
         db.update("Reservations", values, "id = ?", new String[]{String.valueOf(reservationId)});
-        db.close();
     }
     public void updateFine(int reservationId, double newFine) {
         SQLiteDatabase db = this.getWritableDatabase();

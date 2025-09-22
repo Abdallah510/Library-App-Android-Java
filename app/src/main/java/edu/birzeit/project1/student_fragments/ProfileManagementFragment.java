@@ -83,7 +83,7 @@ public class ProfileManagementFragment extends Fragment {
                             default:
                                 break;
                         }
-                        fines += allBorrowings.getDouble(7);
+                        fines += allBorrowings.getDouble(9);
                     }
                 }
                 tvBorrowingBookNum.setText("Number of borrowed books: " + borrowedBooks);

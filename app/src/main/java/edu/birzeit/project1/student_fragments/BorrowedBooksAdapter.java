@@ -1,6 +1,5 @@
 package edu.birzeit.project1.student_fragments;
 
-import static edu.birzeit.project1.librarian_fragment.ReservationAdapter.isOverdue;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,9 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.List;
 import edu.birzeit.project1.database.LibraryDataBase;
 import edu.birzeit.project1.R;
@@ -58,14 +55,14 @@ public class BorrowedBooksAdapter extends RecyclerView.Adapter<BorrowedBooksAdap
         }
         if(!"Pending Extend".equalsIgnoreCase(reservation.getStatus()) && !"Rejected".equalsIgnoreCase(reservation.getStatus())
                 && !"Returned".equalsIgnoreCase(reservation.getStatus())){
-            if (isOverdue(reservation.getDueDate())) {
+            if (db.isOverdue(reservation.getDueDate())) {
                 if (!"Overdue".equalsIgnoreCase(reservation.getStatus())) {
                     int currentPosition = holder.getAdapterPosition();
                     db.updateStatus(reservation.getId(), "Overdue");
                     db.updateFine(reservation.getId(), reservation.getFineAmount() + 50);
                     reservation.setStatus("Overdue");
                     reservation.setFineAmount(reservation.getFineAmount() + 50);
-                    notifyItemChanged(currentPosition);
+                    holder.itemView.post(() -> notifyItemChanged(currentPosition));
                 }
             }
         }
@@ -127,7 +124,8 @@ public class BorrowedBooksAdapter extends RecyclerView.Adapter<BorrowedBooksAdap
                 db.updateReturnDate(reservation.getId(), currentDate);
                 reservation.setStatus("Returned");
                 reservation.setReturnDate(currentDate);
-                notifyItemChanged(currentPosition);
+
+                holder.itemView.post(() -> notifyItemChanged(currentPosition));
 
                 Cursor cursor = sqlDb.rawQuery(
                         "SELECT status FROM Reservations WHERE book_id = ?",
@@ -152,6 +150,7 @@ public class BorrowedBooksAdapter extends RecyclerView.Adapter<BorrowedBooksAdap
                 ContentValues bookValues = new ContentValues();
                 bookValues.put("availability", bookStatus);
                 sqlDb.update("Books", bookValues, "id = ?", new String[]{String.valueOf(reservation.getBookId())});
+
             }
         });
 
@@ -161,7 +160,7 @@ public class BorrowedBooksAdapter extends RecyclerView.Adapter<BorrowedBooksAdap
                 int currentPosition = holder.getAdapterPosition();
                 db.updateStatus(reservation.getId(), "Pending Extend");
                 reservation.setStatus("Pending Extend");
-                notifyItemChanged(currentPosition);
+                holder.itemView.post(() -> notifyItemChanged(currentPosition));
             }
         });
     }

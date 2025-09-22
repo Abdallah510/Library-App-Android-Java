@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -63,7 +64,7 @@ public class LibraryDataBase extends SQLiteOpenHelper {
                 "phone_number TEXT " +
                 ");");
 
-        // Reservations Table (updated version)
+        // Reservations Table
         db.execSQL("CREATE TABLE Reservations (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "student_id INTEGER, " +
@@ -377,7 +378,31 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("fine", newFine);
         db.update("Reservations", values, "id = ?", new String[]{String.valueOf(reservationId)});
-        db.close();
+    }
+    public boolean isOverdue(String dueDate) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        Log.i("DATE", dueDate);
+        LocalDate date = LocalDate.parse(dueDate, formatter);
+        LocalDate.parse(dueDate, formatter);
+        LocalDate currentDate = LocalDate.now();
+        int dueYear = date.getYear();
+        int dueMonth = date.getMonthValue();
+        int dueDay = date.getDayOfMonth();
+        int nowYear = currentDate.getYear();
+        int nowMonth = currentDate.getMonthValue();
+        int nowDay = currentDate.getDayOfMonth();
+        if (nowYear > dueYear) {
+            return true;
+        } else if (nowYear == dueYear) {
+            if (nowMonth > dueMonth) {
+                return true;
+            } else if (nowMonth == dueMonth) {
+                if (nowDay > dueDay) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     // ================== Librarian Methods ==================
     public Cursor getAllLibrarians() {
@@ -394,7 +419,6 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         values.put("password_hash", librarian.getPasswordHash());
         values.put("phone_number", librarian.getPhoneNumber());
         db.insert("Librarian", null, values);
-        db.close();
     }
 
     // ================== READING LIST Methods ==================
@@ -410,7 +434,6 @@ public class LibraryDataBase extends SQLiteOpenHelper {
         values.put("added_date", reservationDate);
 
         long result = db.insert("Reading_List", null, values);
-        db.close();
         return result != -1;
     }
 

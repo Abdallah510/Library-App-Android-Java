@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
@@ -20,6 +22,7 @@ import java.util.List;
 import edu.birzeit.project1.R;
 import edu.birzeit.project1.database.LibraryDataBase;
 import edu.birzeit.project1.entities.Reservation;
+import edu.birzeit.project1.prelogin.LoginActivity;
 import edu.birzeit.project1.student_fragments.BookAdapter;
 
 public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.ViewHolder> {
@@ -27,6 +30,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
     private final List<Reservation> reservations;
     private final Context context;
     private final LibraryDataBase db;
+    private String availibility;
     public ReservationAdapter(Context context, List<Reservation> reservations) {
         this.context = context;
         this.reservations = reservations;
@@ -91,6 +95,7 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
             if (allBooksCursor.getInt(0) == reservation.getBookId()) {
                 title = allBooksCursor.getString(1);
                 coverUrl = allBooksCursor.getString(6);
+                availibility = allBooksCursor.getString(5);
                 break;
             }
         }
@@ -141,6 +146,10 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
             public void onClick(View v) {
                 int currentPosition = holder.getAdapterPosition();
                 if ("Pending".equalsIgnoreCase(reservation.getStatus())) {
+                    if("Borrowed".equalsIgnoreCase(availibility)){
+                        Toast.makeText(context, "Already borrowed", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     db.updateStatus(reservation.getId(), "Active");
                     reservation.setStatus("Active");
                 } else {
@@ -164,11 +173,8 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
                     SQLiteDatabase sqlDb = db.getWritableDatabase();
                     sqlDb.execSQL("UPDATE Books SET availability = 'Borrowed' WHERE id = ?", new Object[]{reservation.getBookId()});
                 }
-
                 if (thisBook != null) thisBook.close();
             }
-
-
 
         });
         btnReject.setOnClickListener(new View.OnClickListener() {

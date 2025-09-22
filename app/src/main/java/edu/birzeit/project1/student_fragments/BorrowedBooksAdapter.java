@@ -1,8 +1,10 @@
 package edu.birzeit.project1.student_fragments;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -115,13 +117,43 @@ public class BorrowedBooksAdapter extends RecyclerView.Adapter<BorrowedBooksAdap
                 int currentPosition = holder.getAdapterPosition();
                 String currentDate = new java.text.SimpleDateFormat("yyyy/MM/dd", java.util.Locale.getDefault())
                         .format(new java.util.Date());
+
+                SQLiteDatabase sqlDb = db.getWritableDatabase();
+
                 db.updateStatus(reservation.getId(), "Returned");
                 db.updateReturnDate(reservation.getId(), currentDate);
                 reservation.setStatus("Returned");
                 reservation.setReturnDate(currentDate);
+
                 holder.itemView.post(() -> notifyItemChanged(currentPosition));
+
+                Cursor cursor = sqlDb.rawQuery(
+                        "SELECT status FROM Reservations WHERE book_id = ?",
+                        new String[]{String.valueOf(reservation.getBookId())}
+                );
+
+                boolean hasPending = false;
+
+                while (cursor.moveToNext()) {
+                    String status = cursor.getString(0);
+                    if ("Pending".equalsIgnoreCase(status)) {
+                        hasPending = true;
+                    }
+                }
+                cursor.close();
+                String bookStatus;
+                if (hasPending) {
+                    bookStatus = "Reserved";
+                } else {
+                    bookStatus = "Available";
+                }
+                ContentValues bookValues = new ContentValues();
+                bookValues.put("availability", bookStatus);
+                sqlDb.update("Books", bookValues, "id = ?", new String[]{String.valueOf(reservation.getBookId())});
+
             }
         });
+
         btnExtend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

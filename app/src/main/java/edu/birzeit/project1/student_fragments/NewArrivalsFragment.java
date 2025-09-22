@@ -110,70 +110,13 @@ public class NewArrivalsFragment extends Fragment {
         adapter = new BookAdapter(requireContext(), bookList, true,false, new BookAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Book book) {
-                // handle click for Add button
+
             }
         });
 
 
-
-//        String availability = checkAvailable.isChecked() ? "Available" : null;
-//        String category = spinnerSort.getSelectedItemPosition() == 0 ? null : spinnerSort.getSelectedItem().toString();
-//        int minYear = 0;
-//        int maxYear = 9999;
-//
-//        try { minYear = Integer.parseInt(minYearInput.getText().toString()); }
-//        catch (NumberFormatException ignored) {}
-//        try { maxYear = Integer.parseInt(maxYearInput.getText().toString()); }
-//        catch (NumberFormatException ignored) {}
         recyclerView.setAdapter(adapter);
-//        tvSearchbar.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                applyFilter();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) { }
-//        });
-//
-//        minYearInput.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                applyFilter();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) { }
-//        });
-//        maxYearInput.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                applyFilter();
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) { }
-//        });
-//        spinnerSort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-//                applyFilter();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> parent) { }
-//        });
-//
-//        checkAvailable.setOnCheckedChangeListener((buttonView, isChecked) -> applyFilter());
+
 
 
         return view;

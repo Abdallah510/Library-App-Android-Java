@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:background="#212D40">
 
-        <!-- Book Cover -->
         <ImageView
             android:id="@+id/imgBookCover"
             android:layout_width="120dp"
@@ -22,7 +21,6 @@
             android:contentDescription="Book Cover"
             android:scaleType="centerCrop" />
 
-        <!-- Info Section -->
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="0dp"
@@ -30,7 +28,6 @@
             android:layout_weight="1"
             android:paddingBottom="8dp">
 
-            <!-- Book Title -->
             <TextView
                 android:id="@+id/tvBookTitle"
                 android:layout_width="match_parent"
@@ -42,14 +39,12 @@
                 android:singleLine="true"
                 android:layout_marginBottom="4dp"/>
 
-            <!-- Author -->
             <TextView
                 android:id="@+id/tvAuthor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Author: "/>
 
-            <!-- Borrow/Reservation Dates -->
             <TextView
                 android:id="@+id/tvBorrowDate"
                 android:layout_width="match_parent"
@@ -68,7 +63,6 @@
                 android:layout_height="wrap_content"
                 android:text="Return date: "/>
 
-            <!-- Status & Fine -->
             <TextView
                 android:id="@+id/tvStatus"
                 android:layout_width="match_parent"
@@ -84,7 +78,6 @@
                 android:text="Fine: $0.0"
                 android:layout_marginTop="2dp"/>
 
-            <!-- Action Buttons -->
             <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"

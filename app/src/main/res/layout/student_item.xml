@@ -14,7 +14,6 @@
         android:layout_height="wrap_content"
         android:background="#212D40">
 
-        <!-- Profile Picture -->
         <ImageView
             android:id="@+id/imgProfile"
             android:layout_width="90dp"
@@ -24,14 +23,12 @@
             android:src="@drawable/logo"
             android:contentDescription="Profile Picture" />
 
-        <!-- Info Section -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <!-- Name -->
             <TextView
                 android:id="@+id/tvName"
                 android:layout_width="match_parent"
@@ -41,7 +38,6 @@
                 android:textStyle="bold"
                 android:layout_marginBottom="4dp" />
 
-            <!-- University ID -->
             <TextView
                 android:id="@+id/tvUniversityId"
                 android:layout_width="match_parent"
@@ -49,7 +45,6 @@
                 android:text="University ID:"
                 android:textSize="14sp" />
 
-            <!-- Email -->
             <TextView
                 android:id="@+id/tvEmail"
                 android:layout_width="match_parent"
@@ -57,7 +52,6 @@
                 android:text="Email: "
                 android:textSize="14sp" />
 
-            <!-- Department -->
             <TextView
                 android:id="@+id/tvDepartment"
                 android:layout_width="match_parent"
@@ -65,7 +59,6 @@
                 android:text="Department: "
                 android:textSize="14sp" />
 
-            <!-- Level -->
             <TextView
                 android:id="@+id/tvLevel"
                 android:layout_width="match_parent"
@@ -73,7 +66,6 @@
                 android:text="Level:"
                 android:textSize="14sp" />
 
-            <!-- Phone -->
             <TextView
                 android:id="@+id/tvPhone"
                 android:layout_width="match_parent"

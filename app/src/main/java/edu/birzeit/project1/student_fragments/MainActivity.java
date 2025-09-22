@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//            getSupportActionBar().setHomeAsUpIndicator(R.drawable.logo); // your hamburger or logo
         }
 
         toolbar.setNavigationOnClickListener(v -> drawer.openDrawer(GravityCompat.START));

@@ -12,8 +12,10 @@ public class Product_JSONParser {
     public static List<Product> getObjectFromJson(String json) {
         List<Product> products = new ArrayList<>();
         try {
-            JSONObject root = new JSONObject(json); // parse root object
-            JSONArray jsonArray = root.getJSONArray("categories"); // get array
+            if (json == null)
+                return null;
+            JSONObject root = new JSONObject(json);
+            JSONArray jsonArray = root.getJSONArray("categories");
 
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
@@ -26,7 +28,6 @@ public class Product_JSONParser {
                 products.add(product);
             }
         } catch (JSONException e) {
-            e.printStackTrace();
             return null;
         }
         return products;

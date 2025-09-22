@@ -19,7 +19,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!-- Book Cover -->
             <ImageView
                 android:id="@+id/imgBookCover"
                 android:layout_width="119dp"
@@ -28,14 +27,12 @@
                 android:contentDescription="Book Cover"
                 android:scaleType="centerCrop" />
 
-            <!-- Info Section -->
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
 
-                <!-- Book Title -->
                 <TextView
                     android:id="@+id/tvBookTitle"
                     android:layout_width="match_parent"
@@ -47,7 +44,6 @@
                     android:singleLine="true"
                     android:layout_marginBottom="4dp" />
 
-                <!-- Student Info -->
                 <TextView
                     android:id="@+id/tvStudentName"
                     android:layout_width="match_parent"
@@ -63,7 +59,6 @@
                     android:textSize="14sp"
                     android:layout_marginBottom="6dp" />
 
-                <!-- Reservation Info -->
                 <TextView
                     android:id="@+id/tvReservationDate"
                     android:layout_width="match_parent"
@@ -118,7 +113,6 @@
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Buttons Section -->
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"

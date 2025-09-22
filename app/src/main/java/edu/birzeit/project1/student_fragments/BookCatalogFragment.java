@@ -106,17 +106,6 @@ public class BookCatalogFragment extends Fragment {
             }
         });
 
-
-
-//        String availability = checkAvailable.isChecked() ? "Available" : null;
-//        String category = spinnerSort.getSelectedItemPosition() == 0 ? null : spinnerSort.getSelectedItem().toString();
-//        int minYear = 0;
-//        int maxYear = 9999;
-//
-//        try { minYear = Integer.parseInt(minYearInput.getText().toString()); }
-//        catch (NumberFormatException ignored) {}
-//        try { maxYear = Integer.parseInt(maxYearInput.getText().toString()); }
-//        catch (NumberFormatException ignored) {}
         recyclerView.setAdapter(adapter);
         tvSearchbar.addTextChangedListener(new TextWatcher() {
             @Override

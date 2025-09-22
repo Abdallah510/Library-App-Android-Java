@@ -12,7 +12,6 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- App Logo -->
         <ImageView
             android:id="@+id/imgLogo"
             android:layout_width="100dp"
@@ -23,7 +22,6 @@
             android:scaleType="centerInside"
             android:layout_marginBottom="12dp" />
 
-        <!-- Dashboard Title -->
         <TextView
             android:id="@+id/tvDashboardTitle"
             android:layout_width="wrap_content"
@@ -34,7 +32,6 @@
             android:layout_gravity="center_horizontal"
             android:paddingBottom="16dp" />
 
-        <!-- Announcements Section -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="0dp"

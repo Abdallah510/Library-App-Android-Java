@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Title -->
         <TextView
             android:id="@+id/tvRegistrationTitle"
             android:layout_width="wrap_content"
@@ -22,7 +21,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="24dp"/>
 
-        <!-- University ID -->
         <EditText
             android:id="@+id/etUniversityId"
             android:layout_width="0dp"
@@ -35,7 +33,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"/>
 
-        <!-- First + Last Name Row -->
         <LinearLayout
             android:id="@+id/layoutName"
             android:layout_width="0dp"
@@ -67,7 +64,6 @@
                 android:layout_marginStart="8dp"/>
         </LinearLayout>
 
-        <!-- Email -->
         <EditText
             android:id="@+id/etEmail"
             android:layout_width="0dp"
@@ -80,7 +76,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"/>
 
-        <!-- Password -->
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="0dp"
@@ -93,7 +88,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"/>
 
-        <!-- Confirm Password -->
         <EditText
             android:id="@+id/etConfirmPassword"
             android:layout_width="0dp"
@@ -106,7 +100,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"/>
 
-        <!-- Phone Number -->
         <EditText
             android:id="@+id/etPhoneNumber"
             android:layout_width="0dp"
@@ -119,7 +112,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"/>
 
-        <!-- Register Button -->
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="0dp"

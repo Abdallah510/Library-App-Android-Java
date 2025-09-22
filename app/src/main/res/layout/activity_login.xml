@@ -23,7 +23,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginBottom="24dp"/>
 
-        <!-- University ID or Email -->
         <EditText
             android:id="@+id/etLoginIdEmail"
             android:layout_width="0dp"
@@ -36,7 +35,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"/>
 
-        <!-- Password -->
         <EditText
             android:id="@+id/etLoginPassword"
             android:layout_width="0dp"
@@ -49,7 +47,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"/>
 
-        <!-- Checkboxes Row -->
         <LinearLayout
             android:id="@+id/layoutCheckboxes"
             android:layout_width="0dp"
@@ -61,7 +58,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp">
 
-            <!-- Remember Me Checkbox -->
             <CheckBox
                 android:id="@+id/cbRememberMe"
                 android:layout_width="wrap_content"
@@ -69,7 +65,6 @@
                 android:text="Remember Me"
                 android:textColor="#9A8C98"/>
 
-            <!-- Librarian Checkbox -->
             <CheckBox
                 android:id="@+id/cbLibrarian"
                 android:layout_width="wrap_content"
@@ -79,7 +74,6 @@
                 android:layout_marginStart="24dp"/>
         </LinearLayout>
 
-        <!-- Login Button -->
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="0dp"
@@ -92,7 +86,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="16dp"/>
 
-        <!-- Back to Register -->
         <Button
             android:id="@+id/btnBackToRegister"
             android:layout_width="0dp"

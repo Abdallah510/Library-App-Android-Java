@@ -16,7 +16,6 @@
         android:gravity="center_horizontal"
         android:spacing="12dp">
 
-        <!-- Page Title -->
         <TextView
             android:id="@+id/textViewReportTitle"
             android:layout_width="wrap_content"
@@ -28,7 +27,6 @@
             android:textStyle="bold"
             />
 
-        <!-- Registered Student Count Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -60,7 +58,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Popular Books Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -95,7 +92,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-        <!-- Overdue Items Card -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

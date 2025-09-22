@@ -26,6 +26,7 @@ import edu.birzeit.project1.student_fragments.ConnectionAsyncTask;
 
 public class WelcomeActivity extends AppCompatActivity {
 
+    public static boolean isConnected;
     Button btnConnect;
     ProgressBar progressBar;
     static String APILINK = "https://mocki.io/v1/af54077b-7fc7-447f-b131-89d664069995";
@@ -81,11 +82,6 @@ public class WelcomeActivity extends AppCompatActivity {
                 try {
 
                     connectionAsyncTask.execute(APILINK);
-                    // https://api.jsonsilo.com/demo/3e0eced2-0dea-4967-acc6-1d123e99e709
-                    // https://mocki.io/v1/dbf9b62e-ec38-4726-ab95-407098ba5974
-                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class); startActivity(intent);
-                   startActivity(intent);
-
                 }
                 catch (Exception e){
                     Toast.makeText(WelcomeActivity.this, "Couldn't Connect...", Toast.LENGTH_SHORT).show();
@@ -102,6 +98,8 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     public void fillProducts(List<Product> products) {
+        if (products==null)
+            return;
         LinearLayout linearLayout = findViewById(R.id.root_layout);
         linearLayout.removeAllViews();
         for (int i = 0; i < products.size(); i++) {

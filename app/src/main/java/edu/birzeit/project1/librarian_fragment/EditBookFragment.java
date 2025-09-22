@@ -87,7 +87,7 @@ public class EditBookFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         if (getArguments() != null) {
             bookId = getArguments().getInt("book_id");
             studentId = getArguments().getInt("student_id");

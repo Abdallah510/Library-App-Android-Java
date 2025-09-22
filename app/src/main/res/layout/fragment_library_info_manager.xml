@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal">
 
-        <!-- Title -->
+
         <TextView
             android:id="@+id/tvEditLibraryTitle"
             android:layout_width="wrap_content"
@@ -23,7 +23,6 @@
             android:textColor="@android:color/white"
             android:layout_marginBottom="24dp" />
 
-        <!-- Library Info Card -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +37,6 @@
                 android:layout_height="wrap_content"
                 android:padding="20dp">
 
-                <!-- Library Hours -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -63,7 +61,6 @@
                         android:textColor="@android:color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Services Offered -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -89,7 +86,6 @@
                         android:textColor="@android:color/white" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <!-- Policies & Rules -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -119,7 +115,6 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Save Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveLibraryInfo"
             android:layout_width="match_parent"

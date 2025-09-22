@@ -112,21 +112,8 @@ public class LibrarianBookFragment extends Fragment {
         adapter = new BookAdapter(requireContext(), bookList, false,true, new BookAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Book book) {
-                // handle click for Add button
             }
         });
-
-
-
-//        String availability = checkAvailable.isChecked() ? "Available" : null;
-//        String category = spinnerSort.getSelectedItemPosition() == 0 ? null : spinnerSort.getSelectedItem().toString();
-//        int minYear = 0;
-//        int maxYear = 9999;
-//
-//        try { minYear = Integer.parseInt(minYearInput.getText().toString()); }
-//        catch (NumberFormatException ignored) {}
-//        try { maxYear = Integer.parseInt(maxYearInput.getText().toString()); }
-//        catch (NumberFormatException ignored) {}
         recyclerView.setAdapter(adapter);
 
 

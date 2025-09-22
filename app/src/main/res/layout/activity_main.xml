@@ -9,7 +9,6 @@
 
 
 
-    <!-- Main content -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,7 +30,6 @@
             android:layout_weight="1"
             android:name="edu.birzeit.project1.student_fragments.DashboardFragment" />
 
-        <!-- Bottom buttons -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

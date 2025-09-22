@@ -453,6 +453,5 @@ public class LibraryDataBase extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Implement schema upgrades if needed
     }
 }

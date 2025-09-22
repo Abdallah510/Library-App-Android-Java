@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal">
 
-        <!-- Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,7 +22,6 @@
             android:textAppearance="?attr/textAppearanceHeadline6"
             android:layout_marginBottom="24dp" />
 
-        <!-- Buttons Section -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +32,6 @@
             android:showDividers="middle"
             android:dividerPadding="12dp">
 
-            <!-- Call Library Button -->
             <Button
                 android:id="@+id/btnCallLibrary"
                 android:layout_width="match_parent"
@@ -42,9 +39,7 @@
                 android:text="Call Library"
                 android:layout_marginBottom="16dp"/>
 
-            <!-- Find Us Button -->
 
-            <!-- Email Librarian Button -->
             <Button
                 android:id="@+id/btnFindUs"
                 android:layout_width="match_parent"
@@ -61,7 +56,6 @@
 
         </LinearLayout>
 
-        <!-- Library Info Section -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -76,7 +70,6 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp">
 
-                <!-- Library Hours -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -91,7 +84,6 @@
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:layout_marginBottom="16dp"/>
 
-                <!-- Services Offered -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,7 +98,6 @@
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:layout_marginBottom="16dp"/>
 
-                <!-- Policies and Rules -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

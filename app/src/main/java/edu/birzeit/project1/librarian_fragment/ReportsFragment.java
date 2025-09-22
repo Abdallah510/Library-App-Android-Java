@@ -34,15 +34,13 @@ public class ReportsFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_reports, container, false);
 
-        // Initialize Views
         textViewStudentCount = view.findViewById(R.id.textViewStudentCount);
         textViewPopularBooks = view.findViewById(R.id.textViewPopularBooks);
         textViewOverdueItems = view.findViewById(R.id.textViewOverdueItems);
         Button btnGenerateSheet = view.findViewById(R.id.btnGenerateSheet);
-        // Initialize Database Helper
+
         dbHelper = new LibraryDataBase(getContext(), LibraryDataBase.DATABASE_NAME, null, 1);
 
-        // Load all report data immediately
         loadReportData();
 
 

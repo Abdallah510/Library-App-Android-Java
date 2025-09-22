@@ -16,7 +16,6 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <!-- Book ID -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,7 +31,6 @@
                 android:inputType="number"
                 android:padding="10dp" />
 
-            <!-- Title -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,7 +45,6 @@
                 android:inputType="textCapWords"
                 android:padding="10dp" />
 
-            <!-- Author -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -62,7 +59,6 @@
                 android:inputType="textCapWords"
                 android:padding="10dp" />
 
-            <!-- ISBN -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,7 +66,6 @@
                 android:textStyle="bold"
                 android:layout_marginTop="10dp" />
 
-            <!-- Category (Spinner) -->
             <EditText
                 android:id="@+id/editBookIsbn"
                 android:layout_width="match_parent"
@@ -92,7 +87,6 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp" />
 
-            <!-- Availability (Spinner) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,7 +100,6 @@
                 android:entries="@array/Status"
                 android:padding="10dp" />
 
-            <!-- Publication Year -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,7 +114,6 @@
                 android:inputType="number"
                 android:padding="10dp" />
 
-            <!-- Cover URL -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -136,7 +128,6 @@
                 android:inputType="textUri"
                 android:padding="10dp" />
 
-            <!-- Cover Preview -->
             <ImageView
                 android:id="@+id/imageBookCover"
                 android:layout_width="120dp"
@@ -147,7 +138,6 @@
                 android:scaleType="centerCrop"
                 android:src="@android:drawable/ic_menu_gallery" />
 
-            <!-- Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

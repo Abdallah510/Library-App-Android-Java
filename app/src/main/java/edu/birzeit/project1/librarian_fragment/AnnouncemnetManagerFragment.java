@@ -54,15 +54,14 @@ public class AnnouncemnetManagerFragment extends Fragment {
             String date = cursor.getString(cursor.getColumnIndexOrThrow("date_posted"));
             announcements.add(new Announcement(id, title, message, date));
         }
-        if(announcements.isEmpty() || announcements == null){
+        adapter = new AnnouncementAdapter(getContext(), announcements);
+
+        if(announcements.isEmpty() || announcements == null) {
             tvEmpty.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
-        }else{
-            tvEmpty.setVisibility(View.GONE);
-            recyclerView.setVisibility(View.VISIBLE);
-            adapter = new AnnouncementAdapter(getContext(), announcements);
-            recyclerView.setAdapter(adapter);
         }
+
+        recyclerView.setAdapter(adapter);
         btnAddAnnouncement.setOnClickListener(v -> showAddAnnouncementDialog());
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerView,
                 new RecyclerItemClickListener.OnItemClickListener() {
@@ -101,8 +100,16 @@ public class AnnouncemnetManagerFragment extends Fragment {
                     ann.setDatePosted(LocalDate.now().toString());
                     int id = db.insertAnnouncement(ann);
 
+
+
                     announcements.add(new Announcement(id, ann.getTitle(), ann.getMessage(), ann.getDatePosted()));
                     adapter.notifyItemInserted(announcements.size() - 1);
+
+                    if (announcements.size()>0){
+                        tvEmpty.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+
                     Toast.makeText(getContext(), "Announcement added", Toast.LENGTH_SHORT).show();
                 })
                 .setNegativeButton("Cancel", null)

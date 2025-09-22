@@ -1,5 +1,6 @@
 package edu.birzeit.project1.librarian_fragment;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -183,6 +184,31 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
                     reservation.setStatus("Active");
                 }
                 holder.itemView.post(() -> notifyItemChanged(currentPosition));
+
+                SQLiteDatabase sqlDb = db.getWritableDatabase();
+                Cursor cursor = sqlDb.rawQuery(
+                        "SELECT status FROM Reservations WHERE book_id = ?",
+                        new String[]{String.valueOf(reservation.getBookId())}
+                );
+
+                boolean hasPending = false;
+
+                while (cursor.moveToNext()) {
+                    String status = cursor.getString(0);
+                    if ("Pending".equalsIgnoreCase(status)) {
+                        hasPending = true;
+                    }
+                }
+                cursor.close();
+                String bookStatus;
+                if (hasPending) {
+                    bookStatus = "Reserved";
+                } else {
+                    bookStatus = "Available";
+                }
+                ContentValues bookValues = new ContentValues();
+                bookValues.put("availability", bookStatus);
+                sqlDb.update("Books", bookValues, "id = ?", new String[]{String.valueOf(reservation.getBookId())});
             }
         });
         btnReturn.setOnClickListener(new View.OnClickListener() {
@@ -196,6 +222,31 @@ public class ReservationAdapter extends RecyclerView.Adapter<ReservationAdapter.
                 reservation.setStatus("Returned");
                 reservation.setReturnDate(currentDate);
                 holder.itemView.post(() -> notifyItemChanged(currentPosition));
+
+                SQLiteDatabase sqlDb = db.getWritableDatabase();
+                Cursor cursor = sqlDb.rawQuery(
+                        "SELECT status FROM Reservations WHERE book_id = ?",
+                        new String[]{String.valueOf(reservation.getBookId())}
+                );
+
+                boolean hasPending = false;
+
+                while (cursor.moveToNext()) {
+                    String status = cursor.getString(0);
+                    if ("Pending".equalsIgnoreCase(status)) {
+                        hasPending = true;
+                    }
+                }
+                cursor.close();
+                String bookStatus;
+                if (hasPending) {
+                    bookStatus = "Reserved";
+                } else {
+                    bookStatus = "Available";
+                }
+                ContentValues bookValues = new ContentValues();
+                bookValues.put("availability", bookStatus);
+                sqlDb.update("Books", bookValues, "id = ?", new String[]{String.valueOf(reservation.getBookId())});
             }
         });
 

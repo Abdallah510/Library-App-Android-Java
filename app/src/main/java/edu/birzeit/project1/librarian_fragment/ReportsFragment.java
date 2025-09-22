@@ -114,15 +114,15 @@ public class ReportsFragment extends Fragment {
         String query = "SELECT B.TITLE, R.DUE_DATE " +
                 "FROM RESERVATIONS R " +
                 "JOIN BOOKS B ON R.BOOK_ID = B.ID " +
-                "WHERE date(R.DUE_DATE) < date('now')";
+                "WHERE R.STATUS = 'Overdue' OR (date(R.DUE_DATE) < date('now') AND R.RETURN_DATE IS NULL)";
 
         Cursor cursor = db.rawQuery(query, null);
         StringBuilder overdueItems = new StringBuilder();
 
         if (cursor.moveToFirst()) {
             do {
-                String title = cursor.getString(cursor.getColumnIndexOrThrow("TITLE"));
-                String dueDate = cursor.getString(cursor.getColumnIndexOrThrow("DUE_DATE"));
+                String title = cursor.getString(cursor.getColumnIndexOrThrow("title"));
+                String dueDate = cursor.getString(cursor.getColumnIndexOrThrow("due_date"));
 
                 overdueItems.append("• ")
                         .append(title)

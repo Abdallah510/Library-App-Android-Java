@@ -143,7 +143,18 @@ public class EditBookFragment extends DialogFragment {
                 etBookYear.setText(String.valueOf(thisBook.getInt(7)));
                 etBookCoverUrl.setText(thisBook.getString(6));
                 spinnerCategory.setSelection(thisBook.getInt(4));
-                spinnerAvailability.setSelection(thisBook.getInt(5));
+                String availability = thisBook.getString(5);
+
+
+                int spinnerPosition = 0;
+                for (int i = 0; i < spinnerAvailability.getCount(); i++) {
+                    if (spinnerAvailability.getItemAtPosition(i).toString().equalsIgnoreCase(availability)) {
+                        spinnerPosition = i;
+                        break;
+                    }
+                }
+
+                spinnerAvailability.setSelection(spinnerPosition, true);
 
             }
         }

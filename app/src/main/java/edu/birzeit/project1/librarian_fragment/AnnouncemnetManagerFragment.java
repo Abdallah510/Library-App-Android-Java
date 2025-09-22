@@ -106,6 +106,7 @@ public class AnnouncemnetManagerFragment extends Fragment {
                     adapter.notifyItemInserted(announcements.size() - 1);
 
                     if (announcements.size()>0){
+
                         tvEmpty.setVisibility(View.GONE);
                         recyclerView.setVisibility(View.VISIBLE);
                     }

@@ -30,7 +30,3 @@ Built as a native Android app in Java using the Fragment-based navigation patter
 
 - Android Studio
 - Android SDK (minSdk as configured in `build.gradle`)
-
-## Running the Project
-
-Open the project in Android Studio, sync Gradle, and run on an emulator or physical device.
